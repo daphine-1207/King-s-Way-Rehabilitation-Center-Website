@@ -42,20 +42,6 @@ class OrderForm(forms.ModelForm):
             'placeholder': 'Enter quantity'
         })
     )
-
-    ITEM_SIZE_CHOICES = [
-        ('small', 'Small'),
-        ('medium', 'Medium'),
-        ('large', 'Large'),
-        ('extra_large', 'Extra Large'),  
-    ]
-    
-    item_size = forms.ChoiceField(
-        choices=ITEM_SIZE_CHOICES,
-        widget=forms.RadioSelect,
-        label='Jumper/Shirt Size'
-    )
-
     PAYMENT_CHOICES = [
             ('Mobile_Money', 'Mobile Money'),
             ('Cash-On-Delivery', 'Cash on Delivery'),
@@ -67,12 +53,14 @@ class OrderForm(forms.ModelForm):
             label='Payment Option'
         )
 
+ 
     class Meta:
         model = Order
         fields = ['full_name', 'item_name', 'item_size', 'quantity', 'phone_number', 'delivery_address', 'payment_option']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'}),
             'item_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your item name'}),
+            'item_size': forms.Select(choices=Order.ITEM_SIZE_CHOICES,attrs={'class': 'form-control', 'id': 'item_size_select'}),
             'delivery_address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your delivery address'}),
             'payment_method': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your payment method'}),
 

@@ -44,13 +44,14 @@ class Subscription(models.Model):
 class Order(models.Model):
     full_name = models.CharField(max_length=100)
     item_name = models.CharField(max_length=255)
-    SIZE_CHOICES = [
-        ('small', 'Small'),
-        ('medium', 'Medium'),
-        ('large', 'Large'),
-        ('extra_large', 'Extra Large'),
+    ITEM_SIZE_CHOICES = [
+        ('Extra Small', 'Extra Small'),
+        ('Small', 'Small'),
+        ('Medium', 'Medium'),
+        ('Large', 'Large'),
+        ('Extra Large', 'Extra Large'),
     ]
-    item_size = models.CharField(max_length=20, choices=SIZE_CHOICES,default='medium')
+    item_size = models.CharField(max_length=20, choices=ITEM_SIZE_CHOICES, blank=True, null=True)
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     phone_number = models.CharField(
         max_length=16, 
