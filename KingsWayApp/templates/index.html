@@ -1,0 +1,472 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .hero {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    background-image: url('../static/images/kingswayhome.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; 
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(3px); 
+    z-index: 1; 
+    pointer-events: none; 
+}
+
+
+
+    .sliding-text-container {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        overflow: hidden;
+        z-index: 3;
+    }
+
+    .sliding-text {
+        white-space: nowrap;
+        font-size: 2rem;
+        color: black;
+        animation: slideIn 3s forwards;
+        opacity: 0;
+        margin-bottom: 7px;
+        font-weight: bolder;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sliding-text {
+            font-size: 4vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .sliding-text {
+            font-size: 6vw;
+        }
+    }
+
+    .content {
+        color: black;
+        text-align: center;
+        background-color: white;
+        border-radius: 2px;
+        width: 100%;
+        max-width: 1400px;
+        margin-top: 0;
+        background-color: rgb(229, 239, 243);
+    }
+
+    .content h2 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        font-family: 'Teko', sans-serif;
+        font-weight: bolder;
+    }
+
+    .content p {
+        font-size: 1.2rem;
+        font-family: 'Sen', sans-serif;
+    }
+
+    .cards {
+        padding: 60px 20px;
+        text-align: center;
+
+    }
+
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .card {
+        max-width: 20rem;
+        min-height: 10rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card.scroll-in,
+    .card.scroll-in-right {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .card.scroll-in-right {
+        transform: translateX(0);
+    }
+
+    .icon {
+        color: rgb(255,184,28);
+    }
+
+    .card-body h5 {
+        font-size: 2rem;
+        font-family: 'Teko', sans-serif;
+    }
+
+    .card-body p {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .cards-container {
+            justify-content: center;
+        }
+
+        .card {
+            max-width: 100%;
+        }
+    }
+
+    .network-partners {
+        text-align: center;
+        margin-top: 1px;
+        margin-bottom: 15px;
+    }
+
+    .network-partners h2 {
+        font-size: 3rem;
+        margin-bottom: 50px;
+        font-family: 'Teko', sans-serif;
+    }
+
+    .logos-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .logo-item {
+        flex: 1 1 200px;
+        max-width: 200px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 20px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .logo-item img:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    .logo-item p {
+        margin-top: 5px;
+        text-align: center;
+        font-family: 'Sen', sans-serif;
+        font-weight: bolder;
+
+    }
+
+    .logo-item {
+        opacity: 0;
+        transform: translateX(-100px);
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
+
+    .logo-item.scroll-in,
+    .logo-item.scroll-in-left {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .logo-item.scroll-in-left {
+        transform: translateX(0);
+    }
+
+    .testimonials-container {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 90%;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-left: 5%;
+    }
+
+    .testimonials-container h1 {
+        color: #333333;
+        margin-bottom: 20px;
+    }
+
+    .testimonial-slider {
+        position: relative;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .testimonial {
+        min-width: 100%;
+        box-sizing: border-box;
+        padding: 20px;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .testimonial-content p {
+        color: #666666;
+        font-style: italic;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .testimonial-author img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .testimonial-author h3 {
+        color: #333333;
+        margin: 0;
+    }
+
+    .slider-controls {
+        position: absolute;
+        top: 50%;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+
+    .slider-controls button {
+        background-color: #aac1af;
+        color: #ffffff;
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .slider-controls button:hover {
+        background-color: #a1d2ac;
+    }
+
+</style>
+
+<div class="hero">
+    <div class="sliding-text-container">
+        <p class="sliding-text">
+            Welcome to King's Way Rehabilitation Center<br>
+            Your Path to Recovery<br>
+            Empowering You for a Better Tomorrow
+        </p>
+    </div>
+</div>
+
+<div class="content">
+    <h2>Our Target Group</h2>
+    <p>We support individuals facing addiction, life-controlling issues, and mental health challenges. Our goal is to
+        provide compassionate care and empower you on your journey to recovery and well-being.</p>
+</div>
+
+<div class="cards">
+    <div class="cards-container">
+        <!-- First row of cards -->
+        <div class="card text-bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-cross fa-3x icon"></i><br>Rehabilitation Services
+                    (Christ-centered)</h5>
+            </div>
+        </div>
+        <div class="card text-bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-users fa-3x icon"></i><br>Community Reintegration</h5>
+            </div>
+        </div>
+        <div class="card text-bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-medkit fa-3x icon"></i><br>Education on Health and Prevention
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="cards-container">
+        <!-- Second row of cards -->
+        <div class="card text-bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-globe fa-3x icon"></i><br>Community Outreach and Awareness</h5>
+            </div>
+        </div>
+        <div class="card text-bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-handshake fa-3x icon"></i><br>Partnerships for Comprehensive
+                    Care</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="testimonials-container">
+    <h2>Testimonials</h2>
+
+    <div class="testimonial-slider">
+        <div class="testimonial active">
+            <div class="testimonial-content">
+                <p>"The rehabilitation center changed my life. The staff was supportive, and the programs were
+                    excellent. I feel like a new person!"</p>
+            </div>
+            <div class="testimonial-author">
+                <img src="{% static 'images/testimonial.png' %}" alt="John Doe">
+                <h3>Emmanuel King</h3>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"I was struggling for years, but this center helped me regain control. The care and attention I
+                    received were top-notch."</p>
+            </div>
+            <div class="testimonial-author">
+                <img src="{% static 'images/testimonial.png' %}" alt="Jane Smith">
+                <h3>Ireeta Gershom</h3>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"The programs were very effective, and the staff was always there to help. I'm grateful for the
+                    second chance at life."</p>
+            </div>
+            <div class="testimonial-author">
+                <img src="{% static 'images/testimonial.png' %}" alt="Michael Brown">
+                <h3>Michael Brown</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-controls">
+        <button id="prevBtn">&lt;</button>
+        <button id="nextBtn">&gt;</button>
+    </div>
+</div>
+
+<br>
+
+<div class="network-partners">
+    <h2>Our Network and Partners</h2>
+    <div class="logos-container">
+        <div class="logo-item">
+            <img src="{% static 'images/petroszone_initiative_logo.jpg' %}" alt="Partner Logo 2" class="logo3">
+            <p>Petroszone Initiative</p>
+        </div>
+        <div class="logo-item">
+            <img src="{% static 'images/charis_bible_college_logo.jpg' %}" alt="Network Logo 1">
+            <p>Charis Bible College</p>
+        </div>
+        <div class="logo-item">
+            <img src="{% static 'images/worship_harvest_logo.png' %}" alt="Network Logo 2">
+            <p>Worship Harvest Joggo</p>
+        </div>
+        <div class="logo-item">
+            <img src="{% static 'images/the_dad_base_logo.jpg' %}" alt="Partner Logo 1">
+            <p>The Dad Base</p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function scrollReveal() {
+            const cards = document.querySelectorAll('.card');
+            const logos = document.querySelectorAll('.logo-item');
+
+            cards.forEach((card) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (cardPosition < screenPosition) {
+                    card.classList.add('scroll-in');
+                }
+            });
+
+            logos.forEach((logo) => {
+                const logoPosition = logo.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (logoPosition < screenPosition) {
+                    logo.classList.add('scroll-in-left');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', scrollReveal);
+        window.addEventListener('load', scrollReveal);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const texts = document.querySelectorAll('.sliding-text');
+        let index = 0;
+
+        function showText() {
+            texts.forEach((text, i) => {
+                text.style.animationDelay = `${i * 3}s`;
+            });
+        }
+
+        showText();
+    });
+
+
+</script>
+
+{% endblock %}

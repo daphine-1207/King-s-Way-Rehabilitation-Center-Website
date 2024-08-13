@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    h2 {
+        text-align: center;
+        font-family: 'Teko', sans-serif;
+        margin-top: 10px;
+        font-weight: 900;
+    }
+
+    body {
+        margin-top: 150px;
+        font-family: 'Sen', sans-serif;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: auto;
+    }
+
+    .card {
+        overflow: hidden;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 575.98px) { 
+        .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        .col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .col {
+            flex: 0 0 33.3333%;
+            max-width: 33.3333%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .col {
+            flex: 0 0 33.3333%;
+            max-width: 33.3333%;
+        }
+    }
+</style>
+
+<div class="container my-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <!-- First Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/services3.jpg' %}" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                    <p class="card-text">Description of Image 1
+                        <!-- At King's Way Rehabilitation Center, we believe in the power of community. Our recent outreach program, captured in the image above, showcases our dedication to fostering connections and providing support. Our team, led by dynamic speakers, engages directly with local communities to share resources, educate, and empower individuals. These events are vital in creating a sense of unity and addressing the unique needs of each community we serve. Through these interactions, we aim to build stronger, healthier, and more resilient communities. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Second Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/kingswayabout.jpg' %}" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 2</p>
+                </div>
+            </div>
+        </div>
+        <!-- Third Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/services4.jpg' %}" class="card-img-top" alt="Image 3">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 3</p>
+                </div>
+            </div>
+        </div>
+        <!-- Fourth Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/kingswayhome.jpg' %}" class="card-img-top" alt="Image 4">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 4</p>
+                </div>
+            </div>
+        </div>
+        <!-- Fifth Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/kingswayservices.jpg' %}" class="card-img-top" alt="Image 5">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 5</p>
+                </div>
+            </div>
+        </div>
+        <!-- Sixth Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/kingswayshop.jpg' %}" class="card-img-top" alt="Image 6">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 6</p>
+                </div>
+            </div>
+        </div>
+        <!-- Seventh Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/services2.jpg' %}" class="card-img-top" alt="Image 7">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 7</p>
+                </div>
+            </div>
+        </div>
+        <!-- Eighth Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/service1.jpg' %}" class="card-img-top" alt="Image 8">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 8</p>
+                </div>
+            </div>
+        </div>
+        <!-- Ninth Image -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/kingswaydonate.jpg' %}" class="card-img-top" alt="Image 9">
+                <div class="card-body">
+                    <p class="card-text">Description for Image 9</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

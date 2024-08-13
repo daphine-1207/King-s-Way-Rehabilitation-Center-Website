@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* .hero {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    background-image: url('../static/images/kingswayservices.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; 
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(3px); 
+    z-index: 1; 
+    pointer-events: none; 
+} */
+
+
+    .services {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .heading {
+        font-family: 'Teko', sans-serif;
+        font-size: 40px;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+    h2 {
+        font-family: 'Teko', sans-serif;
+    }
+
+    .service {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        /* margin: 20px 0; */
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .service-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.7s;
+    }
+
+    .service-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .service-text {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .service-image.left {
+        order: 1;
+        transform: translateX(-100%);
+    }
+
+    .service-image.right {
+        order: 3;
+        transform: translateX(100%);
+    }
+
+    /* Updated selectors for the nth-child elements */
+    .service:nth-child(odd) .service-image {
+        order: 1;
+        transform: translateX(-100%);
+    }
+
+    .service:nth-child(odd) .service-text {
+        order: 2;
+    }
+
+    .service:nth-child(even) .service-image {
+        order: 3;
+        transform: translateX(100%);
+    }
+
+    .service:nth-child(even) .service-text {
+        order: 1;
+    }
+
+    @media (max-width: 768px) {
+        .service {
+            flex-direction: column;
+        }
+
+        .service-image {
+            order: 1 !important;
+            transform: translateX(0);
+        }
+
+        .service-text {
+            order: 2;
+        }
+    }
+
+    .service-image.left.show {
+        transform: translateX(0);
+    }
+
+    .service-image.right.show {
+        transform: translateX(0);
+    }
+
+    .para {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .apply {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        margin-top: 60px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .button:hover {
+        background: #555;
+    }
+
+
+</style>
+
+<!-- <div class="hero"></div> -->
+
+<h2 class="heading">Services We Offer</h2>
+<p class="para">Explore a wide range of services designed to meet your needs and exceed your expectations.</p>
+
+
+
+<div class="services">
+    <div class="service">
+        <div class="service-image left">
+            <img src="../static/images/service1.jpg" alt="Residential Rehabilitation Program">
+        </div>
+        <div class="service-text">
+            <h2>Residential Rehabilitation Program</h2>
+            <ul>
+                <li><strong>Discipleship:</strong> Spiritual growth and development are encouraged through Bible
+                    studies, prayer sessions, and faith-based activities that nurture the participants' spiritual
+                    well-being.</li>
+                <li><strong>Mentorship:</strong> Participants are paired with mentors who provide personalized
+                    guidance, support, and encouragement, helping them navigate their rehabilitation journey and
+                    develop essential life skills.</li>
+                <li><strong>Psychiatric & Psychological Assessments:</strong> Regular assessments by qualified
+                    mental health professionals ensure that any underlying psychiatric or psychological issues are
+                    identified and appropriately treated.</li>
+                <li><strong>Detoxification:</strong> For individuals struggling with substance abuse, a medically
+                    supervised detox process is provided to safely manage withdrawal symptoms and prepare them for
+                    further treatment.</li>
+                <li><strong>Counseling:</strong> Both individual and group counseling sessions are available to
+                    address emotional, behavioral, and psychological issues, fostering mental health and resilience.
+                </li>
+                <li><strong>Life Skills Training:</strong> Training in essential life skills, such as communication,
+                    financial management, and job readiness, equips participants for independent living and
+                    successful societal reintegration.</li>
+                <li><strong>Leadership Training:</strong> Leadership development activities empower participants to
+                    become positive role models and community leaders, fostering a sense of purpose and direction.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="service">
+        <div class="service-text">
+            <h2>Non-residential Rehabilitation Program</h2>
+            <ul>
+                <li><strong>Virtual Support:</strong> Participants can access ongoing support through online
+                    platforms, allowing them to connect with professionals and resources from their homes.</li>
+                <li><strong>Counseling:</strong> Virtual counseling sessions with licensed therapists address
+                    emotional and psychological needs, helping participants manage their mental health and overcome
+                    challenges.</li>
+                <li><strong>Resources and Tools:</strong> A variety of online resources, including self-help
+                    materials, educational content, and interactive tools, support participants in their recovery
+                    process.</li>
+            </ul>
+        </div>
+        <div class="service-image right">
+            <img src="../static/images/services2.jpg" alt="Non-residential Rehabilitation Program">
+        </div>
+    </div>
+    <div class="service">
+        <div class="service-image left">
+            <img src="../static/images/services3.jpg" alt="Living Free Outreaches">
+        </div>
+        <div class="service-text">
+            <h2>Living Free Outreaches</h2>
+            <ul>
+                <li><strong>Schools:</strong> Outreach programs in educational institutions raise awareness about
+                    mental health, substance abuse, and related issues through workshops, seminars, and interactive
+                    sessions, engaging students and staff.</li>
+                <li><strong>Churches:</strong> Collaborations with local churches provide faith-based workshops,
+                    support groups, and counseling services to congregants, fostering a supportive community
+                    environment.</li>
+                <li><strong>Communities:</strong> Public awareness campaigns, workshops, and events educate the
+                    community about mental health, addiction, and the importance of seeking help, reducing stigma
+                    and encouraging resource access.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="service">
+        <div class="service-text">
+            <h2>Family Support and Aftercare</h2>
+            <ul>
+                <li><strong>Internal Support:</strong> Family counseling sessions, workshops, and support groups
+                    involve families in the rehabilitation process, helping them understand and support their loved
+                    ones effectively.</li>
+                <li><strong>External Support:</strong> After graduation, participants and their families continue to
+                    receive follow-up counseling, community resources, and support networks to ensure a smooth
+                    transition back into society and reduce relapse risks.</li>
+                <li><strong>Integration Programs:</strong> Tailored programs, including job placement assistance,
+                    educational opportunities, and community engagement activities, support graduates in achieving
+                    long-term success and stability.</li>
+            </ul>
+        </div>
+        <div class="service-image right">
+            <img src="../static/images/services4.jpg" alt="Family Support and Aftercare">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="apply">
+            <h2>ONLINE APPLICATION FORM</h2>
+            <p>GET HELP TODAY!</p>
+            <p>Applying to King’s Way Rehabilitation is simple. Just fill out the information required below and submit
+                your application along with the processing fee. Acceptance of your application will be dependent on
+                meeting all admission requirements.</p>
+            <p>If you are accepted, you will be placed on a waiting list pending available space. When a bed becomes
+                available, your entrance day will be scheduled. To maintain your position on the waiting list, you are
+                required to call the center weekly to demonstrate your continued interest in the program. You may be
+                asked to participate in a program at the center.</p>
+            <a href="{% url 'application_form' %}" class="button">Apply Now</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const images = document.querySelectorAll('.service-image');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        images.forEach(image => {
+            observer.observe(image);
+        });
+    });
+</script>
+
+{% endblock %}

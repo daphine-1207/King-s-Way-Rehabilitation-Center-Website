@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .hero-slide {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+    }
+
+    .hero-slide::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(3px);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        filter: invert(1);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+    }
+
+
+    .text-container {
+        padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .image-container img {
+            height: 400px;
+            margin-top: 47px;
+            margin-left: 50px;
+        }
+
+        .container2 .centered {
+            font-size: 3rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .text-container {
+            padding: 40px;
+        }
+
+        .container2 .centered {
+            font-size: 4rem;
+        }
+    }
+
+    .container2 {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .centered {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 40px;
+        padding: 10px;
+        color: white;
+        font-family: Times, "Times New Roman", Georgia, serif;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Teko', sans-serif;
+        margin-top: 10px;
+        font-weight: 900;
+    }
+
+    p {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .accordion-item {
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 50px;
+    }
+
+.accordion-button {
+    color: rgb(255,184,28); 
+    background-color: transparent; 
+    border: 1px solid transparent; 
+}
+
+
+.accordion-button:not(.collapsed) {
+    color: white; 
+    background-color: rgb(255,184,28); 
+    border-color: rgb(255,184,28); 
+}
+
+
+.accordion-button::after {
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+.accordion-button:focus {
+    box-shadow: none; 
+}
+
+
+    .card {
+        margin-bottom: 20px;
+        text-align: left;
+        height: 90%;
+        opacity: 0;
+        transform: translateX(100px);
+        transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .card.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+</style>
+
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="hero-slide" style="background-image: url('../static/images/kingswayabout.jpg');"></div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image: url('../static/images/kingswayservices.jpg');"></div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image: url('../static/images/kingswayshop.jpg');"></div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image: url('../static/images/services2.jpg');"></div>
+        </div>
+        <div class="carousel-item">
+            <div class="hero-slide" style="background-image: url('../static/images/services4.jpg');"></div>
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+
+<div class="cont">
+    <h2> Who We Are </h2>
+    <p>
+        King's Way Rehabilitation Centre (KWRC) is a registered Christian rehabilitation center that supports
+        individuals struggling with addictions and life-controlling issues through a Christian-oriented approach.
+    </p>
+</div>
+
+<div class="container my-4">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-4 image-container mb-4 mb-md-0">
+            <img src="../static/images/Mr.King.jpeg" alt="Image description">
+        </div>
+        <div class="col-12 col-md-8 text-container">
+            <h2>How It All Began</h2>
+            <p>
+                The ministry started three years ago under the leadership of Emmanuel King who had personally struggled
+                with
+                alcohol and drugs for more than 13 years. After recognizing the need and seeing that there were people
+                around him who were struggling with the very things he had formerly battled, he started reaching out to
+                communities to address the challenges of addictions. Since then, the program has continued to grow into
+                Residential and Non-Residential programs through which people are helped and transformed to overcome
+                addictions and life-controlling issues.
+            </p>
+            <p>
+                KWRC has been able to empower and help several men from the streets through different partnerships and
+                we
+                have watched them transform into responsible individuals. We continue to help individuals out of their
+                life-controlling problems, giving emotional and intellectual support to communities and families from
+                which
+                these people come. We are committed to transformation development achieved through advocacy, spiritual
+                development, rights advancement, economic empowerment, and community-based interventions targeting
+                individuals with addictions and life-controlling problems.
+            </p>
+            <p>
+                As an organization, we will continue to grow and widen our reach in empowering leaders across the
+                nation.
+                With God’s help, we will continue reaching out to as many people as possible, supporting communities and
+                enabling recovery through our programs.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Our Mission 
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    To empower individuals on their journey to recovery, promoting holistic healing and fostering
+                    resilience through a Christ-centered approach.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Our Vision
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    A generation that is free of addiction and life-controlling issues.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="conti">
+    <h2>Our Comprehensive Approach To Recovery</h2>
+    <p>
+        We are a faith-based, one-year, residential discipleship program with the purpose to restore hope to those
+        who suffer from addictions as well as life-controlling issues. We help people to become mentally sound,
+        emotionally balanced, socially adjusted, physically well, and spiritually alive.
+    </p>
+    <p>
+        <strong>Recovery</strong> – Recovery describes the journey we make between being lost and being found, from
+        darkness to light, from broken to in-repair.
+    </p>
+    <p>
+        <strong>Reconciliation</strong> – By focusing first on their relationship with Christ, students have a model
+        for forgiveness and repair. Relationships are restored, and hope for the future is restored.
+    </p>
+    <p>
+        <strong>Transformation</strong> – Rebuilding our students’ identities on the foundation of Jesus Christ
+        allows for ongoing transformation and lifelong growth.
+    </p>
+</div>
+
+<h2>Our Objectives</h2>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    1
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>
+                            To provide rehabilitation services to enhance the physical, mental, and emotional
+                            well-being of individuals through a Christ-centered approach.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    2
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>
+                            To facilitate the successful reintegration of individuals into their communities,
+                            promoting independence and social inclusion.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    3
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>
+                            To provide educational programs for individuals and their families on preventive
+                            measures and strategies to maintain health and prevent relapse.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    4
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>
+                            To actively engage in community outreach and education to raise awareness about mental
+                            health issues, rehabilitation options, and support services available.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    5
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>
+                            To collaborate with governmental and non-governmental organizations to develop and
+                            implement policies that promote mental health and rehabilitation.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cards = document.querySelectorAll('.card');
+
+        function checkScroll() {
+            var scrollPosition = window.innerHeight + window.scrollY;
+            cards.forEach(function (card) {
+                if (scrollPosition > card.offsetTop) {
+                    card.classList.add('show');
+                }
+            });
+        }
+
+        // Check once on page load
+        checkScroll();
+
+        // Listen for scroll events
+        window.addEventListener('scroll', checkScroll);
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,383 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Way Rehabilitation Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    /* Basic styling for the body and container */
+    body {
+        font-family: 'Sen', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(229, 239, 243) !important;
+        overflow-x: hidden;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        background-color: #fff;
+        width: 100%;
+        min-height: 50px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .navbar .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar img {
+        height: 40px;
+        /* Adjust as needed */
+        margin-right: 10px;
+    }
+
+    .navbar h1 {
+        font-size: 1.2rem;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin-right: 0;
+        padding: 0;
+        text-align: right;
+    }
+
+    .navbar ul li {
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 40px;
+    }
+
+    .navbar ul li a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        position: relative;
+        /* Ensure the ::after element is positioned relative to the link */
+    }
+
+    .navbar ul li a:hover {
+        color: rgb(255,184,28);
+    }
+
+    /* Add the underline effect */
+    .navbar ul li a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: rgb(255, 215, 0);
+        /* Same color as the text on hover */
+        transition: width 0.3s;
+        /* Smooth transition */
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .navbar ul li a:hover::after {
+        width: 100%;
+        /* Expand the underline on hover */
+    }
+
+    /* Responsive styles */
+    @media(max-width: 768px) {
+        .navbar ul li {
+            display: block;
+            /* margin: 10px 0; */
+            text-align: left;
+        }
+    }
+
+    /* General Footer Styling */
+    .footer {
+        background-color: #333;
+        padding: 40px 0;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .footer .container {
+        max-width: 1200px;
+        /* Ensures the footer content doesn't extend too wide */
+        margin: 0 auto;
+        /* Centers the footer content horizontally */
+    }
+
+    /* Flexbox setup for footer content */
+    .footer .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        /* Allows items to wrap on smaller screens */
+        justify-content: space-between;
+    }
+
+    /* Contact Information Section */
+    .footer .contact-info {
+        flex: 1 1 300px;
+        /* Flex properties for responsiveness */
+        margin-right: 20px;
+    }
+
+    .footer .contact-info h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: rgb(255,184,28);
+        font-size: 16px;
+    }
+
+    .footer .contact-info p {
+        margin: 5px 0;
+    }
+
+    /* Quick Links Section */
+    .footer .footer-menu {
+        flex: 1 1 300px;
+        /* Flex properties for responsiveness */
+    }
+
+    .footer .footer-menu h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: rgb(255,184,28);
+        font-size: 16px;
+
+    }
+
+    .footer .footer-menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 40px;
+    }
+
+    .footer .footer-menu ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer .footer-menu ul li a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s ease;
+    }
+
+    .footer .footer-menu ul li a:hover {
+        color: rgb(255,184,28);
+    }
+
+
+    /* Social Icons Section */
+    .footer .footer-social {
+        flex: 1 1 300px;
+        /* Flex properties for responsiveness */
+        text-align: right;
+    }
+
+    .footer .footer-social h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: rgb(255,184,28);
+        font-size: 16px;
+        margin-right: 20px;
+    }
+
+    .footer .social-icons {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: right;
+    }
+
+    .footer .social-icons li {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .footer .social-icons li:first-child {
+        margin-left: 0;
+    }
+
+    .footer .social-icons li a {
+        display: block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: white;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+    .footer .social-icons li a:hover {
+        background-color: #333;
+        color: #fff;
+        border-color: #333;
+    }
+
+    /* Bottom Footer */
+    .bottom-footer {
+        background-color: #333;
+        padding: 10px 0;
+        text-align: center;
+        color: silver;
+        font-size: 12px;
+    }
+
+    h6 {
+        color: rgb(255,184,28);
+    }
+
+
+    .custom-border-yellow {
+        border-color: rgb(255,184,28) !important;
+    }
+
+    
+</style>
+
+<body>
+    <!-- Navbar Section -->
+    <header class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../static/images/king's_way_logo.png" alt="Logo" height="50">
+            </a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="background-color: black;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a style="color: black;" class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link"
+                            href="{% url 'services' %}">Services</a></li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link"
+                            href="{% url 'contact' %}">Contact</a></li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link" href="{% url 'donate' %}">Donate</a>
+                    </li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link"
+                            href="{% url 'gallery' %}">Gallery</a></li>
+                    <li class="nav-item"><a style="color: black;" class="nav-link" href="{% url 'shop' %}">Online
+                            Shop</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        <!-- Default content if not overridden -->
+        {% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p>King's Way Rehabilitation Center</p>
+                        <p>Plot 154, Kiwango, Jomayi Estate, Mukono</p>
+                        <p>Phone: (256) 757362263 | (256) 788055607</p>
+                        <p>Email: kingswayrehabilitation@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="footer-menu">
+                        <h3>Quick Links</h3>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'donate' %}">Donate</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'shop' %}">Online Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="footer-newsletter border border-warning p-3 rounded custom-border-yellow">
+                        <h6>Signup for our Newsletter</h6>
+                        <form action="/subscribe/" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="" class="form-control" placeholder="Enter your name" required>
+                                <br>
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
+                                    required>
+                            </div> <br>
+                            <button type="submit" class="btn btn-warning text-white custom-border-yellow">Subscribe</button>
+                        </form>
+                    </div>
+                    <br> <br>
+                    <div class="footer-social">
+                        <h3>Follow Us</h3>
+                        <ul class="social-icons">
+                            <li><a href="https://www.facebook.com/KingsWayRehabilitation" target="_blank"><i
+                                        class="fab fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/KingsWayRehabi1" target="_blank"><i
+                                        class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/kingswayrehabilitation/" target="_blank"><i
+                                        class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-footer">
+            <hr>
+            <div class="container">
+                <p>&copy; 2024 King's Way Rehabilitation Center. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.footer-newsletter form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Thank you for subscribing!');
+                } else {
+                    alert('There was an error. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('There was an error. Please try again.');
+            });
+        });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    h2 {
+        font-family: 'Teko', sans-serif;
+        margin-top: 80px;
+        font-size: 40px;
+        text-align: center;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-body .btn {
+        margin-top: auto;
+    }
+
+    .para {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .custom-border-yellow {
+        border-color: rgb(255, 184, 28) !important;
+    }
+
+    .par {
+        text-align: center;
+    }
+
+    .alert alert-info {
+        margin-top: 40px !important;
+    }
+
+    .radio-inline {
+        display: inline-block;
+    }
+
+    .radio-inline input[type="radio"] {
+        margin-right: 5px;
+    }
+</style>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<h2 class="text-center mb-4">Explore Our Collection</h2>
+<p class="par">We appreciate your visit to our online shop. Please don't hesitate to make an order if something catches
+    your eye.</p>
+
+<main class="container my-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/menshirts.jpg" class="card-img-top" alt="Men's Shirt">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Men's Shirt</h5>
+                    <p class="card-text">Shs.25,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/womenshirts.jpg" class="card-img-top" alt="Women's Shirt">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Women's Shirt</h5>
+                    <p class="card-text">Shs.20,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/childrenshirts.jpg" class="card-img-top" alt="Children's Shirt">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Children's Shirt</h5>
+                    <p class="card-text">Shs.15,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/jumpers1.jpg" class="card-img-top" alt="Jumper">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Jumper</h5>
+                    <p class="card-text">Shs.30,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/bottles2.jpg" class="card-img-top" alt="Bottle">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Bottle</h5>
+                    <p class="card-text">Shs.20,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/wristband.jpeg" class="card-img-top" alt="Wristband">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Wristband</h5>
+                    <p class="card-text">Shs.10,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/cap.jpg" class="card-img-top" alt="Cap">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Cap</h5>
+                    <p class="card-text">Shs.15,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/umbrella1.jpg" class="card-img-top" alt="Umbrella">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Umbrella</h5>
+                    <p class="card-text">Shs.20,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="../static/images/notebook.jpg" class="card-img-top" alt="Notebook">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Notebook</h5>
+                    <p class="card-text">Shs.10,000</p>
+                    <button type="button" class="btn btn-warning custom-border-yellow" data-toggle="modal"
+                        data-target="#orderModal">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for other items -->
+    </div>
+</main>
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Order Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'shop' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div id="paymentDetails">
+                        <p>If you choose Mobile Money, please deposit to one of the following numbers:</p>
+                        <ul>
+                            <li>MTN: +256 788 055 607 (King Emmanuel)</li>
+                            <li>Airtel: +256 757 362 263 (King Emmanuel)</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-warning custom-border-yellow" style="width: 300px; margin-left: 20px;">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
