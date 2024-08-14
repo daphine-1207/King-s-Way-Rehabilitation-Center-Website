@@ -5,7 +5,6 @@ class DonationForm(forms.ModelForm):
     class Meta:
         model = Donation
         fields = ['amount', 'name', 'email', 'payment_method']
-from .models import Subscription
 
 class SubscriptionForm(forms.ModelForm):
     class Meta:
@@ -163,3 +162,9 @@ class ApplicationForm(forms.Form):
         widget=forms.Textarea(attrs={'rows': 5}),
         required=False
     )
+
+
+# class ContactForm(forms.ModelForm):
+#     class Meta:
+#         model = Contact
+#         fields = ['name', 'email', 'message']

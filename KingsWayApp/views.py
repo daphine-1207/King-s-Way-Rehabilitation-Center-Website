@@ -103,3 +103,28 @@ def application_form(request):
 
 def success_view(request):
     return render(request, 'success.html')
+
+
+# def contact_view(request):
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             # Process the data in form.cleaned_data
+#             name = form.cleaned_data['name']
+#             email = form.cleaned_data['email']
+#             message = form.cleaned_data['message']
+
+#             # Send an email
+#             subject = f"New Team Member Application: {name}"
+#             message_body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+#             send_mail(
+#                 subject,
+#                 message_body,
+#                 settings.DEFAULT_FROM_EMAIL,
+#                 [settings.DEFAULT_FROM_EMAIL],  
+#             )
+
+#             return redirect('contact') 
+#     else:
+#         form = ContactForm()
+#     return render(request, 'contact.html', {'form': form})
