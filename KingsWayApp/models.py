@@ -2,7 +2,9 @@
 from django.db import models
 import re
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator, MinValueValidator
+from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator, MinValueValidator, EmailValidator
+import datetime
+from django.utils.translation import gettext_lazy as _
 
 class Donation(models.Model):
     PAYMENT_METHODS = [
@@ -75,19 +77,26 @@ class Order(models.Model):
         return f"Order {self.id} by {self.full_name}"
 
 
+
+def validate_dob(value):
+    if value > datetime.date.today():
+        raise ValidationError(
+            _('Date of birth cannot be in the future.'),
+            params={'value': value},
+        )
+
+
+
 class Application(models.Model):
     # Contact Information
-    first_name = models.CharField(max_length=100)
-    middle_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100)
-    address = models.TextField()
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    district = models.CharField(max_length=100, blank=True, null=True)
-    dob = models.DateField()
-    email = models.EmailField(max_length=100)
+    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2,)]),
+    other_names = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2,)])
+    dob = models.DateField(validators=[validate_dob])
+    physical_address = models.TextField( validators=[MinLengthValidator(10)])
+    city = models.CharField(max_length=100,validators=[MinLengthValidator(2)])
+    country = models.CharField(max_length=100, validators=[MinLengthValidator(2)])
+    district = models.CharField(max_length=100, blank=True, null=True, validators=[MaxLengthValidator(100)])
     primary_phone = models.CharField(max_length=15)
-    secondary_phone = models.CharField(max_length=15, blank=True, null=True)
     
     # Application Details
     someone_else = models.BooleanField()

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
-    /* Basic styling for the body and container */
     body {
         font-family: 'Sen', sans-serif;
         margin: 0;
@@ -21,7 +20,6 @@
         overflow-x: hidden;
     }
 
-    /* Navbar styles */
     .navbar {
         background-color: #fff;
         width: 100%;
@@ -39,7 +37,6 @@
 
     .navbar img {
         height: 40px;
-        /* Adjust as needed */
         margin-right: 10px;
     }
 
@@ -68,23 +65,19 @@
         padding: 10px 15px;
         border-radius: 5px;
         position: relative;
-        /* Ensure the ::after element is positioned relative to the link */
     }
 
     .navbar ul li a:hover {
         color: rgb(255,184,28);
     }
 
-    /* Add the underline effect */
     .navbar ul li a::after {
         content: '';
         display: block;
         width: 0;
         height: 2px;
         background: rgb(255, 215, 0);
-        /* Same color as the text on hover */
         transition: width 0.3s;
-        /* Smooth transition */
         position: absolute;
         bottom: 0;
         left: 0;
@@ -92,19 +85,15 @@
 
     .navbar ul li a:hover::after {
         width: 100%;
-        /* Expand the underline on hover */
     }
 
-    /* Responsive styles */
     @media(max-width: 768px) {
         .navbar ul li {
             display: block;
-            /* margin: 10px 0; */
             text-align: left;
         }
     }
 
-    /* General Footer Styling */
     .footer {
         background-color: #333;
         padding: 40px 0;
@@ -114,45 +103,22 @@
 
     .footer .container {
         max-width: 1200px;
-        /* Ensures the footer content doesn't extend too wide */
         margin: 0 auto;
-        /* Centers the footer content horizontally */
     }
 
-    /* Flexbox setup for footer content */
     .footer .footer-content {
         display: flex;
         flex-wrap: wrap;
-        /* Allows items to wrap on smaller screens */
         justify-content: space-between;
     }
 
-    /* Contact Information Section */
-    .footer .contact-info {
-        flex: 1 1 300px;
-        /* Flex properties for responsiveness */
-        margin-right: 20px;
-    }
-
     .footer .contact-info h3 {
-        margin-top: 0;
         margin-bottom: 10px;
         color: rgb(255,184,28);
         font-size: 16px;
     }
 
-    .footer .contact-info p {
-        margin: 5px 0;
-    }
-
-    /* Quick Links Section */
-    .footer .footer-menu {
-        flex: 1 1 300px;
-        /* Flex properties for responsiveness */
-    }
-
     .footer .footer-menu h3 {
-        margin-top: 0;
         margin-bottom: 10px;
         color: rgb(255,184,28);
         font-size: 16px;
@@ -165,11 +131,7 @@
         margin: 0;
         margin-bottom: 40px;
     }
-
-    .footer .footer-menu ul li {
-        margin-bottom: 8px;
-    }
-
+    
     .footer .footer-menu ul li a {
         text-decoration: none;
         color: #fff;
@@ -181,10 +143,8 @@
     }
 
 
-    /* Social Icons Section */
     .footer .footer-social {
         flex: 1 1 300px;
-        /* Flex properties for responsiveness */
         text-align: right;
     }
 
@@ -230,7 +190,6 @@
         border-color: #333;
     }
 
-    /* Bottom Footer */
     .bottom-footer {
         background-color: #333;
         padding: 10px 0;

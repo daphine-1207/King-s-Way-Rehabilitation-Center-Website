@@ -83,79 +83,81 @@ class ApplicationForm(forms.Form):
     # Application Details
     someone_else = forms.ChoiceField(
         label="Are you completing this application for someone else?", 
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     treatment_centre = forms.CharField(label="What is your first choice for a treatment centre?", max_length=255, required=False)
     age = forms.ChoiceField(
         label="Are you 18 years of age or older?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     abuse_problem = forms.ChoiceField(
         label="Do you have a drug or alcohol abuse problem or addiction?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     faith_based = forms.ChoiceField(
         label="Are you open to a Christian faith-based approach to treatment?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     commitment = forms.ChoiceField(
         label="Are you open to a 12-month commitment to treatment?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     forced = forms.ChoiceField(
         label="Is someone else forcing you to seek help?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     disabilities = forms.ChoiceField(
         label="Do you have disabilities that would prevent full participation in regular physical activities?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     psych_conditions = forms.ChoiceField(
         label="Do you have any other psychiatric conditions?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     serious_conditions = forms.ChoiceField(
         label="Do you have full-blown AIDS, cancer, or tuberculosis?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     medications = forms.ChoiceField(
         label="Do you take medications? If so, what?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     medications_details = forms.CharField(label="Medication Details", widget=forms.Textarea(attrs={'rows': 4}), required=False)
     outstanding_warrants = forms.ChoiceField(
         label="Do you have outstanding warrants?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     parole = forms.ChoiceField(
         label="Are you on parole?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     detention = forms.ChoiceField(
         label="Are you currently in jail, prison, or other detention facility?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
+    legal_issues_details= forms.CharField(label="Legal Issues Details", widget=forms.Textarea(attrs={'rows': 4}), required=False)
     legal_issues = forms.ChoiceField(
         label="Do you have outstanding court or legal issues? If so, what?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
+
     sex_offender_registry = forms.ChoiceField(
         label="Are you listed on the national sex offender registry?",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
     additional_comments = forms.CharField(
