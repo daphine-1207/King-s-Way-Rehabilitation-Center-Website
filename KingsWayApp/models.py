@@ -121,3 +121,12 @@ class Application(models.Model):
     
     def _str_(self):
         return f"{self.first_name} {self.last_name} - {self.email}"
+    
+
+# class Contact(models.Model):
+#     name = models.CharField(max_length=100, blank=True, validators=[validate_name])
+#     email = models.EmailField(unique=True)
+#     message = models.TextField(max_length=500)
+
+#     def _str_(self):
+#         return self.name
