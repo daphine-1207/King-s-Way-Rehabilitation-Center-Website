@@ -65,19 +65,69 @@ class OrderForm(forms.ModelForm):
 
         }
 
-class ApplicationForm(forms.Form):
-    # Contact Information
-    first_name = forms.CharField(label="First Name", max_length=100, required=True)
-    middle_name = forms.CharField(label="Middle Name", max_length=100, required=False)
-    last_name = forms.CharField(label="Last Name", max_length=100, required=True)
-    address = forms.CharField(label="Address", max_length=255, required=True)
-    city = forms.CharField(label="City", max_length=100, required=True)
-    country = forms.CharField(label="Country", max_length=100, required=True)
-    district = forms.CharField(label="District", max_length=100, required=True)
-    dob = forms.DateField(label="Date of Birth", required=True, widget=forms.TextInput(attrs={'type': 'date'}))
-    email = forms.EmailField(label="Email Address", required=True)
-    primary_phone = forms.CharField(label="Primary Phone Number", max_length=15, required=True)
-    secondary_phone = forms.CharField(label="Secondary Phone Number", max_length=15, required=False)
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = [
+            'surname_name', 'other_names', 'marital_status', 'nationality', 'dob', 'pob', 
+            'age', 'nin', 'passport_number', 'physical_address', 'phone_number', 
+            'full_name', 'emergency_phone_number', 'relationship', 'someone_else', 
+            'rehabilitation_setting', 'rehabilitation_setting_details', 'mental_health_treatment', 
+            'counselling_before', 'main_problem', 'comments'
+        ]
+
+    # Personal Information
+    surname_name = forms.CharField(
+        label="Surname", max_length=100, validators=[validate_name, MinLengthValidator(2)], required=True
+    )
+    other_names = forms.CharField(
+        label="Other Names", max_length=200, validators=[validate_name, MinLengthValidator(2)], required=True
+    )
+    marital_status = forms.ChoiceField(
+        label="Marital Status",
+        choices=[('Single', 'Single'), ('Married', 'Married'), ('Divorced', 'Divorced'), ('Widowed', 'Widowed')],
+        required=True
+    )
+    nationality = forms.CharField(
+        label="Nationality", max_length=100, validators=[MinLengthValidator(4)], required=True
+    )
+    dob = forms.DateField(
+        label="Date of Birth", required=True, widget=forms.TextInput(attrs={'type': 'date'})
+    )
+    pob = forms.CharField(
+        label="Place of Birth", max_length=100, validators=[MaxLengthValidator(100)], required=True
+    )
+    age = forms.IntegerField(label="Age", required=True, widget=forms.TextInput(attrs={
+            'style': 'width: 100%;'})
+    )
+    nin = forms.CharField(
+        label="National Identification Number (NIN)", validators=[nin_validator], required=False
+    )
+    passport_number = forms.CharField(
+        label="Passport Number", validators=[passport_number_validator], required=False
+    )
+    physical_address = forms.CharField(
+        label="Physical Address",validators=[MinLengthValidator(4)], required=True
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=17, validators=[phone_number_validator], required=True, widget=forms.TextInput(attrs={
+            'placeholder': 'Enter number with your country code'})
+    )
+
+    # Emergency Contact
+    full_name = forms.CharField(
+        label="Full Name", max_length=200, validators=[validate_name, MinLengthValidator(5)], required=True
+    )
+    emergency_phone_number = forms.CharField(
+        label="Phone Number", max_length=17, validators=[phone_number_validator], required=True, widget=forms.TextInput(attrs={
+            'placeholder': 'Enter number with your country code'})
+    )
+    address = forms.CharField(
+        label="Address",validators=[MinLengthValidator(4)], required=True
+    )
+    relationship = forms.CharField(
+        label="Relationship", max_length=100, required=True
+    )
 
     # Application Details
     someone_else = forms.ChoiceField(
@@ -85,84 +135,29 @@ class ApplicationForm(forms.Form):
         choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
-    treatment_centre = forms.CharField(label="What is your first choice for a treatment centre?", max_length=255, required=False)
-    age = forms.ChoiceField(
-        label="Are you 18 years of age or older?",
+    rehabilitation_setting = forms.ChoiceField(
+        label="Have you been in a rehabilitation setting before?", 
         choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
-    abuse_problem = forms.ChoiceField(
-        label="Do you have a drug or alcohol abuse problem or addiction?",
+    rehabilitation_setting_details = forms.CharField(
+        label="If yes, details of Rehabilitation Setting", widget=forms.Textarea(attrs={'rows': 4}), required=False
+    )
+    mental_health_treatment = forms.ChoiceField(
+        label="Have you ever received mental health treatment?", 
         choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
-    faith_based = forms.ChoiceField(
-        label="Are you open to a Christian faith-based approach to treatment?",
+    counselling_before = forms.ChoiceField(
+        label="Have you had counselling before?", 
         choices=[('Yes', 'Yes'), ('No', 'No')],
         widget=forms.RadioSelect, required=True
     )
-    commitment = forms.ChoiceField(
-        label="Are you open to a 12-month commitment to treatment?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
+    main_problem = forms.CharField(
+        label="Main Problem", widget=forms.Textarea(attrs={'rows': 4}), required=False
     )
-    forced = forms.ChoiceField(
-        label="Is someone else forcing you to seek help?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    disabilities = forms.ChoiceField(
-        label="Do you have disabilities that would prevent full participation in regular physical activities?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    psych_conditions = forms.ChoiceField(
-        label="Do you have any other psychiatric conditions?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    serious_conditions = forms.ChoiceField(
-        label="Do you have full-blown AIDS, cancer, or tuberculosis?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    medications = forms.ChoiceField(
-        label="Do you take medications? If so, what?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    medications_details = forms.CharField(label="Medication Details", widget=forms.Textarea(attrs={'rows': 4}), required=False)
-    outstanding_warrants = forms.ChoiceField(
-        label="Do you have outstanding warrants?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    parole = forms.ChoiceField(
-        label="Are you on parole?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    detention = forms.ChoiceField(
-        label="Are you currently in jail, prison, or other detention facility?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    legal_issues_details= forms.CharField(label="Legal Issues Details", widget=forms.Textarea(attrs={'rows': 4}), required=False)
-    legal_issues = forms.ChoiceField(
-        label="Do you have outstanding court or legal issues? If so, what?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-
-    sex_offender_registry = forms.ChoiceField(
-        label="Are you listed on the national sex offender registry?",
-        choices=[('Yes', 'Yes'), ('No', 'No')],
-        widget=forms.RadioSelect, required=True
-    )
-    additional_comments = forms.CharField(
-        label="Anything else we need to know? Medication? Legal? Health concerns?",
-        widget=forms.Textarea(attrs={'rows': 5}),
-        required=False
+    comments = forms.CharField(
+        label="Additional Comments", widget=forms.Textarea(attrs={'rows': 5}), required=False
     )
 
 
