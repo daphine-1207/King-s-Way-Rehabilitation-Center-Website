@@ -104,21 +104,21 @@ phone_number_validator = RegexValidator(
 
 class Application(models.Model):
     # Personal Information
-    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)]),
+    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)])
     other_names = models.CharField(max_length=200, validators=[validate_name, MinLengthValidator(2)])
     marital_status = models.BooleanField()
-    nationality = models.CharField(max_length=100, blank=False, null=False, validators=[MinLengthValidator(4)])
+    nationality = models.CharField(max_length=100, blank=False, null=False, validators=[validate_name, MinLengthValidator(4)])
     dob = models.DateField(validators=[validate_dob])
     pob = models.CharField(max_length=100, blank=False, null=False, validators=[MaxLengthValidator(100)])
     age = models.IntegerField()
     nin = models.CharField(max_length=20, validators=[nin_validator])
     passport_number = models.CharField(max_length=10, validators=[passport_number_validator], blank=True, null=True)
-    physical_address = models.CharField(max_length=100, validators=[MinLengthValidator(4)])
+    physical_address = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(4)])
     phone_number = models.CharField(max_length=17, validators=[phone_number_validator])
 
     #Incase of Emergecncy
-    full_name = models.CharField (max_length=200, validators=[validate_name, MinLengthValidator(5,)])
-    address = models.CharField(max_length=100, validators=[MinLengthValidator(4)])
+    full_name = models.CharField (max_length=200, validators=[validate_name, MinLengthValidator(5)])
+    address = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(4)])
     phone_number = models.CharField(max_length=17, validators=[phone_number_validator])
     relationship = models.CharField(max_length=100)
     

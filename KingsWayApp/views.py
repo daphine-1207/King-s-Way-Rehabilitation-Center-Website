@@ -147,15 +147,16 @@ def application_form(request):
                     fail_silently=False
                 )
                 messages.success(request, 'Application submitted successfully!')
-                return redirect('success')
             except Exception as e:
                 print(f'Error sending email: {e}')
                 messages.error(request, 'There was an error sending your application.')
-                return render(request, 'application_form.html', {'form': form})
+
+            return redirect('success')
         else:
             messages.error(request, 'Please correct the errors in the form.')
-            return render(request, 'application_form.html', {'form': form})
+
     else:
         form = ApplicationForm()
 
     return render(request, 'application_form.html', {'form': form})
+
