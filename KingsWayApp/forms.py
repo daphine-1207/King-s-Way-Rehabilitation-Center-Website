@@ -76,6 +76,19 @@ class ApplicationForm(forms.ModelForm):
             'counselling_before', 'main_problem', 'comments'
         ]
 
+
+    def clean(self):
+        cleaned_data = super().clean()
+        boolean_fields = ['marital_status', 'someone_else', 'rehabilitation_setting', 'mental_health_treatment', 'counselling_before']
+
+        for field in boolean_fields:
+            value = cleaned_data.get(field)
+            if value in ['Yes', 'No']:
+                cleaned_data[field] = True if value == 'Yes' else False
+
+        return cleaned_data
+
+
     # Personal Information
     surname_name = forms.CharField(
         label="Surname", max_length=100, validators=[validate_name, MinLengthValidator(2)], required=True
@@ -85,7 +98,7 @@ class ApplicationForm(forms.ModelForm):
     )
     marital_status = forms.ChoiceField(
         label="Marital Status",
-        choices=[('Single', 'Single'), ('Married', 'Married'), ('Divorced', 'Divorced'), ('Widowed', 'Widowed')],
+        choices=[('Yes', 'Yes'), ('No', 'No')],
         required=True
     )
     nationality = forms.CharField(
@@ -101,7 +114,7 @@ class ApplicationForm(forms.ModelForm):
             'style': 'width: 100%;'})
     )
     nin = forms.CharField(
-        label="National Identification Number (NIN)", validators=[nin_validator], required=False
+        label="National Identification Number (NIN)", required=False
     )
     passport_number = forms.CharField(
         label="Passport Number", validators=[passport_number_validator], required=False

@@ -100,7 +100,7 @@ def application_form(request):
         if form.is_valid():
             application_data = form.cleaned_data
 
-            # Compose the email content
+            #  Compose the email content
             email_message = f"""
             New Application Received
 
@@ -116,12 +116,12 @@ def application_form(request):
             NIN: {application_data.get('nin')}
             Passport Number: {application_data.get('passport_number')}
             Physical Address: {application_data.get('physical_address')}
-            Phone Number: {application_data.get('phone_number')}
+            Phone Number: {application_data.get('emergency_phone_number')}
 
             Emergency Contact:
             ----------------------
-            Full Name: {application_data.get('emergency_full_name')}
-            Address: {application_data.get('emergency_address')}
+            Full Name: {application_data.get('full_name')}
+            Address: {application_data.get('address')}
             Phone Number: {application_data.get('emergency_phone_number')}
             Relationship: {application_data.get('relationship')}
 
@@ -159,4 +159,18 @@ def application_form(request):
         form = ApplicationForm()
 
     return render(request, 'application_form.html', {'form': form})
+
+    # if request.method == 'POST':
+    #     print(request.POST)
+    #     form = ApplicationForm(request.POST)
+    #     if form.is_valid():
+    #         print("Form is valid")
+    #     else:
+    #         print("Form is not valid")
+    #         print(form.errors)
+
+    # else:
+    #     form = ApplicationForm()
+
+    # return render(request, 'application_form.html', {'form': form})
 
