@@ -98,7 +98,6 @@ def application_form(request):
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
         if form.is_valid():
-            # Get cleaned data from the form
             application_data = form.cleaned_data
 
             # Compose the email content
@@ -107,36 +106,34 @@ def application_form(request):
 
             Applicant Details:
             ----------------------
-            Full Name: {application_data.get('first_name')} {application_data.get('middle_name', '')} {application_data.get('last_name')}
-            Address: {application_data.get('address')}
-            City: {application_data.get('city')}
-            Country: {application_data.get('country')}
-            District: {application_data.get('district')}
+            Surname: {application_data.get('surname')}
+            Other Names: {application_data.get('other_names')}
+            Marital Status: {application_data.get('marital_status')}
+            Nationality: {application_data.get('nationality')}
             Date of Birth: {application_data.get('dob')}
-            Primary Phone: {application_data.get('primary_phone')}
-            Secondary Phone: {application_data.get('secondary_phone')}
-            Email: {application_data.get('email')}
+            Place of Birth: {application_data.get('pob')}
+            Age: {application_data.get('age')}
+            NIN: {application_data.get('nin')}
+            Passport Number: {application_data.get('passport_number')}
+            Physical Address: {application_data.get('physical_address')}
+            Phone Number: {application_data.get('phone_number')}
+
+            Emergency Contact:
+            ----------------------
+            Full Name: {application_data.get('emergency_full_name')}
+            Address: {application_data.get('emergency_address')}
+            Phone Number: {application_data.get('emergency_phone_number')}
+            Relationship: {application_data.get('relationship')}
 
             Application Details:
             ----------------------
             Completing for Someone Else: {application_data.get('someone_else')}
-            First Choice Treatment Centre: {application_data.get('treatment_centre')}
-            18 Years or Older: {application_data.get('age')}
-            Drug or Alcohol Abuse Problem: {application_data.get('abuse_problem')}
-            Open to Faith-Based Treatment: {application_data.get('faith_based')}
-            12-Month Commitment: {application_data.get('commitment')}
-            Forced to Seek Help: {application_data.get('forced')}
-            Disabilities: {application_data.get('disabilities')}
-            Psychiatric Conditions: {application_data.get('psych_conditions')}
-            Serious Conditions (AIDS, Cancer, TB): {application_data.get('serious_conditions')}
-            Takes Medications: {application_data.get('medications')}
-            Medication Details: {application_data.get('medications_details')}
-            Outstanding Warrants: {application_data.get('outstanding_warrants')}
-            On Parole: {application_data.get('parole')}
-            In Detention Facility: {application_data.get('detention')}
-            Legal Issues: {application_data.get('legal_issues')}
-            Sex Offender Registry: {application_data.get('sex_offender_registry')}
-            Additional Comments: {application_data.get('additional_comments')}
+            Rehabilitation Setting: {application_data.get('rehabilitation_setting')}
+            Rehabilitation Setting Details: {application_data.get('rehabilitation_setting_details')}
+            Mental Health Treatment History: {application_data.get('mental_health_treatment')}
+            Counselling Before: {application_data.get('counselling_before')}
+            Main Problem: {application_data.get('main_problem')}
+            Additional Comments: {application_data.get('comments')}
             """
 
             # Send the email
@@ -150,14 +147,14 @@ def application_form(request):
                     fail_silently=False
                 )
                 messages.success(request, 'Application submitted successfully!')
+                return redirect('success')
             except Exception as e:
                 print(f'Error sending email: {e}')
                 messages.error(request, 'There was an error sending your application.')
-
-            return redirect('success')
+                return render(request, 'application_form.html', {'form': form})
         else:
             messages.error(request, 'Please correct the errors in the form.')
-
+            return render(request, 'application_form.html', {'form': form})
     else:
         form = ApplicationForm()
 

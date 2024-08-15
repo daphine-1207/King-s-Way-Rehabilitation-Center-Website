@@ -85,42 +85,54 @@ def validate_dob(value):
             params={'value': value},
         )
 
+def nin_validator(value):
+    pattern = r'^[A-Z0-9]{6,20}$' 
+    if not re.match(pattern, value):
+        raise ValidationError(
+            'NIN must be between 6 and 20 alphanumeric characters long.'
+)
 
+passport_number_validator = RegexValidator(
+    regex=r'^[a-zA-Z0-9]{6,14}$',
+    message="Passport number must be between 6 and 14 alphanumeric characters."
+)
+
+phone_number_validator = RegexValidator(
+    regex=r'^\+?1?\d{9,15}$',
+    message="Enter a valid phone number."
+)
 
 class Application(models.Model):
-    # Contact Information
-    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)])
-    other_names = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)])
+    # Personal Information
+    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)]),
+    other_names = models.CharField(max_length=200, validators=[validate_name, MinLengthValidator(2)])
+    marital_status = models.BooleanField()
+    nationality = models.CharField(max_length=100, blank=False, null=False, validators=[MinLengthValidator(4)])
     dob = models.DateField(validators=[validate_dob])
-    physical_address = models.TextField( validators=[MinLengthValidator(10)])
-    city = models.CharField(max_length=100,validators=[MinLengthValidator(2)])
-    country = models.CharField(max_length=100, validators=[MinLengthValidator(2)])
-    district = models.CharField(max_length=100, blank=True, null=True, validators=[MaxLengthValidator(100)])
-    primary_phone = models.CharField(max_length=15)
+    pob = models.CharField(max_length=100, blank=False, null=False, validators=[MaxLengthValidator(100)])
+    age = models.IntegerField()
+    nin = models.CharField(max_length=20, validators=[nin_validator])
+    passport_number = models.CharField(max_length=10, validators=[passport_number_validator], blank=True, null=True)
+    physical_address = models.CharField(max_length=100, validators=[MinLengthValidator(4)])
+    phone_number = models.CharField(max_length=17, validators=[phone_number_validator])
+
+    #Incase of Emergecncy
+    full_name = models.CharField (max_length=200, validators=[validate_name, MinLengthValidator(5,)])
+    address = models.CharField(max_length=100, validators=[MinLengthValidator(4)])
+    phone_number = models.CharField(max_length=17, validators=[phone_number_validator])
+    relationship = models.CharField(max_length=100)
     
     # Application Details
     someone_else = models.BooleanField()
-    treatment_centre = models.CharField(max_length=100, blank=True, null=True)
-    age = models.BooleanField()
-    abuse_problem = models.BooleanField()
-    faith_based = models.BooleanField()
-    commitment = models.BooleanField()
-    forced = models.BooleanField()
-    disabilities = models.BooleanField()
-    psychiatric = models.BooleanField()
-    aids = models.BooleanField()
-    medications = models.BooleanField()
-    medications_details = models.TextField(blank=True, null=True)
-    warrants = models.BooleanField()
-    parole = models.BooleanField()
-    detention = models.BooleanField()
-    legal_issues = models.BooleanField()
-    legal_issues_details = models.TextField(blank=True, null=True)
-    sex_offender = models.BooleanField()
+    rehabilitation_setting = models.BooleanField()
+    rehabilitation_setting_details = models.TextField(blank=True, null=True)
+    mental_health_treatment = models.BooleanField()
+    counselling_before = models.BooleanField()
+    main_problem = models.TextField(blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
     
     def _str_(self):
-        return f"{self.first_name} {self.last_name} - {self.email}"
+        return f"{self.first_name} {self.last_name} - {self.phone_number}"
     
 
 # class Contact(models.Model):

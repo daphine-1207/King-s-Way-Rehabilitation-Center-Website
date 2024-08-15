@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>King's Way Rehabilitation - Online Application Form</title>
     <style>
-        /* Add your existing CSS here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -106,44 +105,67 @@
     <div class="container">
         <form method="post">
             {% csrf_token %}
-            <h2>CONTACT INFORMATION</h2>
-            <p>Provide us your contact information.</p>
+            <h2>PERSONAL INFORMATION</h2>
+            <p>Provide us your personal information.</p>
             <div class="form-group">
-                {{ form.first_name.label_tag }} {{ form.first_name }}
+                {{ form.surname_name.label_tag }} {{ form.surname_name }}
             </div>
             <div class="form-group">
-                {{ form.middle_name.label_tag }} {{ form.middle_name }}
+                {{ form.other_names.label_tag }} {{ form.other_names }}
             </div>
             <div class="form-group">
-                {{ form.last_name.label_tag }} {{ form.last_name }}
+                {{ form.marital_status.label_tag }}
+                <div class="radio-group">
+                    {% for value, label in form.marital_status.field.choices %}
+                    <label>
+                        <input type="radio" name="{{ form.marital_status.html_name }}" value="{{ value }}" {% if form.marital_status.value == value %}checked{% endif %}>
+                        {{ label }}
+                    </label>
+                    {% endfor %}
+                </div>
             </div>
             <div class="form-group">
-                {{ form.address.label_tag }} {{ form.address }}
-            </div>
-            <div class="form-group">
-                {{ form.city.label_tag }} {{ form.city }}
-            </div>
-            <div class="form-group">
-                {{ form.country.label_tag }} {{ form.country }}
-            </div>
-            <div class="form-group">
-                {{ form.district.label_tag }} {{ form.district }}
+                {{ form.nationality.label_tag }} {{ form.nationality }}
             </div>
             <div class="form-group">
                 {{ form.dob.label_tag }} {{ form.dob }}
             </div>
             <div class="form-group">
-                {{ form.email.label_tag }} {{ form.email }}
+                {{ form.pob.label_tag }} {{ form.pob }}
             </div>
             <div class="form-group">
-                {{ form.primary_phone.label_tag }} {{ form.primary_phone }}
+                {{ form.age.label_tag }} {{ form.age }}
             </div>
             <div class="form-group">
-                {{ form.secondary_phone.label_tag }} {{ form.secondary_phone }}
+                {{ form.nin.label_tag }} {{ form.nin }}
+            </div>
+            <div class="form-group">
+                {{ form.passport_number.label_tag }} {{ form.passport_number }}
+            </div>
+            <div class="form-group">
+                {{ form.physical_address.label_tag }} {{ form.physical_address }}
+            </div>
+            <div class="form-group">
+                {{ form.phone_number.label_tag }} {{ form.phone_number }}
             </div>
 
-            <h2>APPLICATION DETAILS</h2>
-            <p>Tell us about yourself and your current circumstances.</p>
+            <h2>EMERGENCY CONTACT</h2>
+            <p>Provide details incase of an emergency.</p>
+            <div class="form-group">
+                {{ form.full_name.label_tag }} {{ form.full_name }}
+            </div>
+            <div class="form-group">
+                {{ form.address.label_tag }} {{ form.address }}
+            </div>
+            <div class="form-group">
+                {{ form.emergency_phone_number.label_tag }} {{ form.emergency_phone_number }}
+            </div>
+            <div class="form-group">
+                {{ form.relationship.label_tag }} {{ form.relationship }}
+            </div>
+
+            <h2>MENTAL HEALTH HISTORY</h2>
+            <p>Tell us more about yourself and your current circumstances.</p>
             <div class="form-group">
                 <label>{{ form.someone_else.label }}</label>
                 <div class="radio-group">
@@ -156,169 +178,46 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form.treatment_centre.label_tag }} {{ form.treatment_centre }}
-            </div>
-            <div class="form-group">
-                <label>{{ form.age.label }}</label>
+                {{ form.rehabilitation_setting.label_tag }}
                 <div class="radio-group">
-                    {% for value, label in form.age.field.choices %}
+                    {% for value, label in form.rehabilitation_setting.field.choices %}
                     <label>
-                        <input type="radio" name="{{ form.age.html_name }}" value="{{ value }}" {% if form.age.value == value %}checked{% endif %}>
+                        <input type="radio" name="{{ form.rehabilitation_setting.html_name }}" value="{{ value }}" {% if form.rehabilitation_setting.value == value %}checked{% endif %}>
                         {{ label }}
                     </label>
                     {% endfor %}
                 </div>
             </div>
             <div class="form-group">
-                <label>{{ form.abuse_problem.label }}</label>
+                {{ form.rehabilitation_setting_details.label_tag }} {{ form.rehabilitation_setting_details }}
+            </div>
+            <div class="form-group">
+                {{ form.mental_health_treatment.label_tag }}
                 <div class="radio-group">
-                    {% for value, label in form.abuse_problem.field.choices %}
+                    {% for value, label in form.mental_health_treatment.field.choices %}
                     <label>
-                        <input type="radio" name="{{ form.abuse_problem.html_name }}" value="{{ value }}" {% if form.abuse_problem.value == value %}checked{% endif %}>
+                        <input type="radio" name="{{ form.mental_health_treatment.html_name }}" value="{{ value }}" {% if form.mental_health_treatment.value == value %}checked{% endif %}>
                         {{ label }}
                     </label>
                     {% endfor %}
                 </div>
             </div>
             <div class="form-group">
-                <label>{{ form.faith_based.label }}</label>
+                {{ form.counselling_before.label_tag }}
                 <div class="radio-group">
-                    {% for value, label in form.faith_based.field.choices %}
+                    {% for value, label in form.counselling_before.field.choices %}
                     <label>
-                        <input type="radio" name="{{ form.faith_based.html_name }}" value="{{ value }}" {% if form.faith_based.value == value %}checked{% endif %}>
+                        <input type="radio" name="{{ form.counselling_before.html_name }}" value="{{ value }}" {% if form.counselling_before.value == value %}checked{% endif %}>
                         {{ label }}
                     </label>
                     {% endfor %}
                 </div>
             </div>
             <div class="form-group">
-                <label>{{ form.commitment.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.commitment.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.commitment.html_name }}" value="{{ value }}" {% if form.commitment.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
+                {{ form.main_problem.label_tag }} {{ form.main_problem }}
             </div>
             <div class="form-group">
-                <label>{{ form.forced.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.forced.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.forced.html_name }}" value="{{ value }}" {% if form.forced.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.disabilities.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.disabilities.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.disabilities.html_name }}" value="{{ value }}" {% if form.disabilities.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.psych_conditions.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.psych_conditions.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.psych_conditions.html_name }}" value="{{ value }}" {% if form.psych_conditions.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.serious_conditions.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.serious_conditions.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.serious_conditions.html_name }}" value="{{ value }}" {% if form.serious_conditions.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.medications.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.medications.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.medications.html_name }}" value="{{ value }}" {% if form.medications.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form.medications_details.label_tag }} {{ form.medications_details }}
-            </div>
-            <div class="form-group">
-                <label>{{ form.outstanding_warrants.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.outstanding_warrants.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.outstanding_warrants.html_name }}" value="{{ value }}" {% if form.outstanding_warrants.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.parole.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.parole.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.parole.html_name }}" value="{{ value }}" {% if form.parole.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.detention.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.detention.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.detention.html_name }}" value="{{ value }}" {% if form.detention.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.legal_issues.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.legal_issues.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.legal_issues.html_name }}" value="{{ value }}" {% if form.legal_issues.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ form.sex_offender_registry.label }}</label>
-                <div class="radio-group">
-                    {% for value, label in form.sex_offender_registry.field.choices %}
-                    <label>
-                        <input type="radio" name="{{ form.sex_offender_registry.html_name }}" value="{{ value }}" {% if form.sex_offender_registry.value == value %}checked{% endif %}>
-                        {{ label }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>{{ form.additional_comments.label }}</label>
-                {{ form.additional_comments }}
+                {{ form.comments.label_tag }} {{ form.comments }}
             </div>
 
             <button type="submit">Submit Application</button>
