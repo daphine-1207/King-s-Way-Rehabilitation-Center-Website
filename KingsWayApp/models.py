@@ -89,8 +89,8 @@ def validate_dob(value):
 
 class Application(models.Model):
     # Contact Information
-    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2,)]),
-    other_names = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2,)])
+    surname_name = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)])
+    other_names = models.CharField(max_length=100, validators=[validate_name, MinLengthValidator(2)])
     dob = models.DateField(validators=[validate_dob])
     physical_address = models.TextField( validators=[MinLengthValidator(10)])
     city = models.CharField(max_length=100,validators=[MinLengthValidator(2)])
