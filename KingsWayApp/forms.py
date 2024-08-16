@@ -64,4 +64,3 @@ class OrderForm(forms.ModelForm):
             'payment_method': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your payment method'}),
 
         }
-
