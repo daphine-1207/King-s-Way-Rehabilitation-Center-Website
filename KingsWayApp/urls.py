@@ -11,7 +11,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('donate/', views.donate, name='donate'),
     path('shop/', views.shop, name='shop'),
-    path('application_form/', views.application_form, name='application_form'),
     path('success/', success_view, name='success'),
  
 ]
