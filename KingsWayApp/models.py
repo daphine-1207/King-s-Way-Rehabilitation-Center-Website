@@ -75,3 +75,12 @@ class Order(models.Model):
 
     def _str_(self):
         return f"Order {self.id} by {self.full_name}"
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return f"{self.name} - {self.email}"

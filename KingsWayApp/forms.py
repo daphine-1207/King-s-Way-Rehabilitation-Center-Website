@@ -64,3 +64,8 @@ class OrderForm(forms.ModelForm):
             'payment_method': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your payment method'}),
 
         }
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label="Name")
+    email = forms.EmailField(label="Email address")
+    message = forms.CharField(widget=forms.Textarea, label="Message")
