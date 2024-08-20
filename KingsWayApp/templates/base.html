@@ -239,7 +239,7 @@
                             Shop</a></li>
                             <li>
                                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfhbmMRQl_NDrW_d8pyyGtPs0A5sPHoZHqNPWXrazIbAVUcpw/viewform"
-                                   class="button" 
+                                   class="button" target="_blank"
                                    style="background-color: rgb(255,184,28); color: initial; transition: color 0.3s;" 
                                    onmouseover="this.style.color='white';" 
                                    onmouseout="this.style.color='initial';">
@@ -294,7 +294,8 @@
                                 <input type="email" name="email" class="form-control" placeholder="Enter your email"
                                     required>
                             </div> <br>
-                            <button type="submit" class="btn btn-warning text-white custom-border-yellow">Subscribe</button>
+                            <a href="{% url 'subscription_success' %}" class="btn btn-warning text-white custom-border-yellow">Subscribe</a>
+
                         </form>
                     </div>
                     <br> <br>
