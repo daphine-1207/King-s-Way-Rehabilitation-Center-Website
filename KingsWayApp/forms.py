@@ -52,18 +52,30 @@ class OrderForm(forms.ModelForm):
             label='Payment Option'
         )
 
+
+    ITEM_CHOICES = [
+        ('Mens_TShirt', "Men's T-Shirt"),
+        ('Baby_Sweater', 'Baby Sweater'),
+        ('Womens_TShirt', "Women's T-Shirt"),
+        ('Jumper', 'Jumper'),
+        ('Bottle', 'Bottle'),
+        ('Wristband', 'Wristband'),
+        ('Cap', 'Cap'),
+        ('Umbrella', 'Umbrella'),
+        ('Notebook', 'Notebook'),
+]
  
     class Meta:
         model = Order
         fields = ['full_name', 'item_name', 'item_size', 'quantity', 'phone_number', 'delivery_address', 'payment_option']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'}),
-            'item_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your item name'}),
+            'item_name': forms.Select(choices=Order.ITEM_CHOICES,attrs={'class': 'form-control', 'id': 'item_size_select'}),
             'item_size': forms.Select(choices=Order.ITEM_SIZE_CHOICES,attrs={'class': 'form-control', 'id': 'item_size_select'}),
             'delivery_address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your delivery address'}),
             'payment_method': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your payment method'}),
 
-        }
+}
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, label="Name")

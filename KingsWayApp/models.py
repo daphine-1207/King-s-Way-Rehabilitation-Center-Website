@@ -77,6 +77,18 @@ class Order(models.Model):
         ('Large', 'Large'),
         ('Extra Large', 'Extra Large'),
     ]
+    ITEM_CHOICES = [
+        ('Mens_TShirt', "Men's T-Shirt"),
+        ('Baby_Sweater', 'Baby Sweater'),
+        ('Womens_TShirt', "Women's T-Shirt"),
+        ('Jumper', 'Jumper'),
+        ('Bottle', 'Bottle'),
+        ('Wristband', 'Wristband'),
+        ('Cap', 'Cap'),
+        ('Umbrella', 'Umbrella'),
+        ('Notebook', 'Notebook'),
+]
+    item_name = models.CharField(max_length=255, choices=ITEM_CHOICES, blank=False, null=False)
     item_size = models.CharField(max_length=20, choices=ITEM_SIZE_CHOICES, blank=True, null=True)
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     phone_number = models.CharField(

@@ -4,27 +4,26 @@
 
 <style>
     .hero {
-    position: relative;
-    width: 100%;
-    height: 95vh;
-    background-image: url('../static/images/kingswayhome.jpg');
-    background-size: cover;
-    background-position: center;
-    overflow: hidden; 
-}
+        position: relative;
+        width: 100%;
+        height: 95vh;
+        background-image: url('../static/images/kingswayhome.jpg');
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+    }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(3px); 
-    z-index: 1; 
-    pointer-events: none; 
-}
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 1;
+        pointer-events: none;
+    }
 
 
 
@@ -100,7 +99,6 @@
     .cards {
         padding: 60px 20px;
         text-align: center;
-
     }
 
     .cards-container {
@@ -114,9 +112,11 @@
     .card {
         max-width: 20rem;
         min-height: 10rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        opacity: 0;
-        transform: translateX(-100px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        opacity: 1;
+        transform: translateX(0);
+        position: relative;
+        overflow: hidden;
     }
 
     .card:hover {
@@ -124,18 +124,31 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .card.scroll-in,
-    .card.scroll-in-right {
-        opacity: 1;
-        transform: translateX(0);
+    .card .description {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 10px;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .card.scroll-in-right {
-        transform: translateX(0);
+    .card:hover .description {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card .description p {
+        margin: 0;
+        font-size: 1rem;
     }
 
     .icon {
-        color: rgb(255,184,28);
+        color: rgb(255, 184, 28);
     }
 
     .card-body h5 {
@@ -156,6 +169,7 @@
             max-width: 100%;
         }
     }
+
 
     .network-partners {
         text-align: center;
@@ -222,119 +236,152 @@
         transform: translateX(0);
     }
 
-    .testimonials-container {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        max-width: 90%;
-        width: 100%;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        margin-left: 5%;
-    }
+    .testimonials {
+  position: relative;
+  overflow: hidden;
+  background: #fff; /* White background for the section */
+  padding: 2rem;
+}
 
-    .testimonials-container h1 {
-        color: #333333;
-        margin-bottom: 20px;
-    }
+.testimonial-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
 
-    .testimonial-slider {
-        position: relative;
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-    }
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
 
-    .testimonial {
-        min-width: 100%;
-        box-sizing: border-box;
-        padding: 20px;
-        transition: opacity 0.5s ease-in-out;
-    }
+.testimonial {
+  min-width: 300px;
+  margin: 0 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
 
-    .testimonial-content p {
-        color: #666666;
-        font-style: italic;
-    }
+.testimonial-image {
+  flex: 0 0 80px;
+  margin-right: 1rem;
+}
 
-    .testimonial-author {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 15px;
-    }
+.testimonial-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
-    .testimonial-author img {
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
-    }
+.testimonial-content {
+  flex: 1;
+}
 
-    .testimonial-author h3 {
-        color: #333333;
-        margin: 0;
-    }
+.testimonial-content p {
+  font-style: italic;
+  color: #555;
+  margin: 0.5rem 0;
+}
 
-    .slider-controls {
-        position: absolute;
-        top: 50%;
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-    }
+.testimonial-content h3 {
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: #333;
+}
 
-    .slider-controls button {
-        background-color: #aac1af;
-        color: #ffffff;
-        border: none;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+.testimonial-content p:last-of-type {
+  font-weight: bold;
+  color: #888;
+}
 
-    .slider-controls button:hover {
-        background-color: #a1d2ac;
-    }
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-prev {
+  left: 1rem;
+}
+
+.carousel-next {
+  right: 1rem;
+}
+
+@media (max-width: 600px) {
+  .testimonial {
+    min-width: 200px;
+  }
+}
+
+.par {
+    padding-left: 40px;
+    padding-right: 40px;
+}
 
 </style>
 
 <div class="hero">
-    <div class="sliding-text-container">
-        <p class="sliding-text">
-            Welcome to King's Way Rehabilitation Center<br>
-            Your Path to Recovery<br>
-            Empowering You for a Better Tomorrow
-        </p>
-    </div>
 </div>
 
-<div class="content">
-    <h2>Our Target Group</h2>
-    <p>We support individuals facing addiction, life-controlling issues, and mental health challenges. Our goal is to
-        provide compassionate care and empower you on your journey to recovery and well-being.</p>
-</div>
+<section class="sec">
+    <div class="content">
+        <h2>Our Target Group</h2>
+        <p class="par">We support individuals facing addiction, life-controlling issues, and mental health challenges. Our goal is to provide compassionate care and empower you on your journey to recovery and well-being.</p>
+    </div>
+</section>
 
 <div class="cards">
     <div class="cards-container">
         <!-- First row of cards -->
         <div class="card text-bg-primary mb-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-cross fa-3x icon"></i><br>Rehabilitation Services
-                    (Christ-centered)</h5>
+                <h5 class="card-title">
+                    <i class="fas fa-cross fa-3x icon"></i><br>Rehabilitation Services (Christ-centered)
+                </h5>
+                <div class="description">
+                    <p>Our Christ-centered rehabilitation services are designed to offer holistic support for
+                        individuals seeking personal growth and healing. Through compassionate care and guidance, we aim
+                        to help you overcome challenges and achieve a fulfilling life in alignment with your faith and
+                        values.</p>
+                </div>
             </div>
         </div>
         <div class="card text-bg-secondary mb-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-users fa-3x icon"></i><br>Community Reintegration</h5>
+                <h5 class="card-title">
+                    <i class="fas fa-users fa-3x icon"></i><br>Community Reintegration
+                </h5>
+                <div class="description">
+                    <p>We focus on helping individuals smoothly reintegrate into their communities with practical
+                        assistance, emotional support, and active community engagement, ensuring a successful transition
+                        and fostering a sense of belonging.</p>
+                </div>
             </div>
         </div>
         <div class="card text-bg-success mb-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-medkit fa-3x icon"></i><br>Education on Health and Prevention
+                <h5 class="card-title">
+                    <i class="fas fa-medkit fa-3x icon"></i><br>Education on Health and Prevention
                 </h5>
+                <div class="description">
+                    <p>Our education programs provide valuable information on health practices and preventive measures.
+                        We offer workshops and resources to help individuals make informed decisions about their health,
+                        prevent illness, and maintain overall well-being through proactive and preventive strategies.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -342,61 +389,176 @@
         <!-- Second row of cards -->
         <div class="card text-bg-danger mb-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-globe fa-3x icon"></i><br>Community Outreach and Awareness</h5>
+                <h5 class="card-title">
+                    <i class="fas fa-globe fa-3x icon"></i><br>Community Outreach and Awareness
+                </h5>
+                <div class="description">
+                    <p>Our community outreach initiatives focus on raising awareness and promoting positive change
+                        within the community. Through various campaigns and events, we strive to address pressing
+                        issues, educate the public, and foster a culture of support and engagement.</p>
+                </div>
             </div>
         </div>
         <div class="card text-bg-danger mb-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-handshake fa-3x icon"></i><br>Partnerships for Comprehensive
-                    Care</h5>
+                <h5 class="card-title">
+                    <i class="fas fa-handshake fa-3x icon"></i><br>Partnerships for Comprehensive Care
+                </h5>
+                <div class="description">
+                    <p>We build strategic partnerships to provide comprehensive care and support services. By
+                        collaborating with various organizations and stakeholders, we enhance our ability to address
+                        diverse needs and deliver effective solutions for comprehensive and coordinated care.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="testimonials-container">
+<section class="testimonials">
     <h2>Testimonials</h2>
-
-    <div class="testimonial-slider">
-        <div class="testimonial active">
-            <div class="testimonial-content">
-                <p>"The rehabilitation center changed my life. The staff was supportive, and the programs were
-                    excellent. I feel like a new person!"</p>
-            </div>
-            <div class="testimonial-author">
-                <img src="{% static 'images/testimonial.png' %}" alt="John Doe">
-                <h3>Emmanuel King</h3>
-            </div>
-        </div>
-
+    <div class="testimonial-carousel">
+      <div class="carousel-track">
+        <!-- Testimonial 1 -->
         <div class="testimonial">
-            <div class="testimonial-content">
-                <p>"I was struggling for years, but this center helped me regain control. The care and attention I
-                    received were top-notch."</p>
-            </div>
-            <div class="testimonial-author">
-                <img src="{% static 'images/testimonial.png' %}" alt="Jane Smith">
-                <h3>Ireeta Gershom</h3>
-            </div>
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Jane Doe">
+          </div>
+          <div class="testimonial-content">
+            <p>"This NGO has transformed our community with their innovative programs and dedication. Their impact is truly appreciated."</p>
+            <h3>Jane Doe</h3>
+            <p>Community Leader</p>
+          </div>
         </div>
-
+        <!-- Testimonial 2 -->
         <div class="testimonial">
-            <div class="testimonial-content">
-                <p>"The programs were very effective, and the staff was always there to help. I'm grateful for the
-                    second chance at life."</p>
-            </div>
-            <div class="testimonial-author">
-                <img src="{% static 'images/testimonial.png' %}" alt="Michael Brown">
-                <h3>Michael Brown</h3>
-            </div>
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="John Smith">
+          </div>
+          <div class="testimonial-content">
+            <p>"The team goes above and beyond with their support, making a significant difference through their commitment and care."</p>
+            <h3>John Smith</h3>
+            <p>Volunteer</p>
+          </div>
         </div>
+        <!-- Testimonial 3 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Mary Johnson">
+          </div>
+          <div class="testimonial-content">
+            <p>"Their impactful programs and dedication are evident in every project they undertake. Truly admirable work."</p>
+            <h3>Mary Johnson</h3>
+            <p>Beneficiary</p>
+          </div>
+        </div>
+        <!-- Testimonial 4 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Robert Brown">
+          </div>
+          <div class="testimonial-content">
+            <p>"A beacon of hope! Their support during crucial times shows unwavering commitment and compassion."</p>
+            <h3>Robert Brown</h3>
+            <p>Donor</p>
+          </div>
+        </div>
+        <!-- Testimonial 5 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Linda Davis">
+          </div>
+          <div class="testimonial-content">
+            <p>"Remarkable dedication and impact. Their focus on community improvements is truly commendable."</p>
+            <h3>Linda Davis</h3>
+            <p>Supporter</p>
+          </div>
+        </div>
+        <!-- Testimonial 6 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Michael Wilson">
+          </div>
+          <div class="testimonial-content">
+            <p>"Exceptional service and compassion in every interaction. They make a significant difference."</p>
+            <h3>Michael Wilson</h3>
+            <p>Community Member</p>
+          </div>
+        </div>
+        <!-- Testimonial 7 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Emily Miller">
+          </div>
+          <div class="testimonial-content">
+            <p>"Their dedication has led to numerous successful initiatives that address critical community needs."</p>
+            <h3>Emily Miller</h3>
+            <p>Partner</p>
+          </div>
+        </div>
+        <!-- Testimonial 8 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="David Lee">
+          </div>
+          <div class="testimonial-content">
+            <p>"An inspiring example of dedication with a focus on long-term positive change and community impact."</p>
+            <h3>David Lee</h3>
+            <p>Advocate</p>
+          </div>
+        </div>
+        <!-- Testimonial 9 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Sarah Martinez">
+          </div>
+          <div class="testimonial-content">
+            <p>"Transforming lives through a comprehensive approach that leads to lasting impact and positive change."</p>
+            <h3>Sarah Martinez</h3>
+            <p>Former Volunteer</p>
+          </div>
+        </div>
+        <!-- Testimonial 10 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Daniel Garcia">
+          </div>
+          <div class="testimonial-content">
+            <p>"Their work is a powerful testament to what can be achieved with passion and commitment. Substantial improvements have been made."</p>
+            <h3>Daniel Garcia</h3>
+            <p>Community Partner</p>
+          </div>
+        </div>
+        <!-- Testimonial 11 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Anna Wilson">
+          </div>
+          <div class="testimonial-content">
+            <p>"A truly transformative organization with initiatives that address both immediate needs and long-term improvements."</p>
+            <h3>Anna Wilson</h3>
+            <p>Beneficiary</p>
+          </div>
+        </div>
+        <!-- Testimonial 12 -->
+        <div class="testimonial">
+          <div class="testimonial-image">
+            <img src="../static/images/testimonial.png" alt="Oliver Harris">
+          </div>
+          <div class="testimonial-content">
+            <p>"Their dedication to service and the positive influence they bring is inspiring. Their thoroughness reflects their commitment."</p>
+            <h3>Oliver Harris</h3>
+            <p>Volunteer</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-prev">&#10094;</button>
+      <button class="carousel-next">&#10095;</button>
     </div>
+  </section>
+  
+  
+  
 
-    <div class="slider-controls">
-        <button id="prevBtn">&lt;</button>
-        <button id="nextBtn">&gt;</button>
-    </div>
-</div>
 
 <br>
 
@@ -466,6 +628,30 @@
         showText();
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+  const prevButton = document.querySelector('.carousel-prev');
+  const nextButton = document.querySelector('.carousel-next');
+  const track = document.querySelector('.carousel-track');
+  const testimonials = document.querySelectorAll('.testimonial');
+  const testimonialWidth = testimonials[0].offsetWidth;
+  const totalWidth = testimonialWidth * testimonials.length;
+  
+  let offset = 0;
+  
+  function moveCarouselTo(offset) {
+    track.style.transform = `translateX(-${offset}px)`;
+  }
+  
+  prevButton.addEventListener('click', () => {
+    offset = Math.max(0, offset - testimonialWidth);
+    moveCarouselTo(offset);
+  });
+
+  nextButton.addEventListener('click', () => {
+    offset = Math.min(totalWidth - testimonialWidth, offset + testimonialWidth);
+    moveCarouselTo(offset);
+  });
+});
 
 </script>
 
