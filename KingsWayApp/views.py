@@ -93,3 +93,43 @@ def donate(request):
 def success_view(request):
     return render(request, 'success.html')
 
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact_data = form.cleaned_data
+            recipient_email =  'kingswayrehabilitation@gmail.com'  
+
+            # Compose email content
+            email_message = f"""
+            New Contact Form Submission
+
+            Details:
+            ----------------------
+            Name: {contact_data.get('name')}
+            Email: {contact_data.get('email')}
+            Message: {contact_data.get('message')}
+            """
+
+            # Send email
+            try:
+                send_mail(
+                    subject='New Contact Form Submission',
+                    message=email_message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[recipient_email],
+                    fail_silently=False
+                )
+                messages.success(request, 'Your message has been sent successfully!')
+            except Exception as e:
+                print(f'Error sending email: {e}')
+                messages.error(request, 'There was an error sending your message.')
+
+            return redirect('success')  
+        else:
+            return render(request, 'contact.html', {'form': form})
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
