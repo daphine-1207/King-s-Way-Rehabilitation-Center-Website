@@ -54,7 +54,7 @@ def send_welcome_email(sender, instance, created, **kwargs):
             from_email='your-email@example.com',
             recipient_list=[instance.email],
             fail_silently=False,
-        )
+)
 
         # Send notification email to admin
         send_mail(
@@ -62,8 +62,8 @@ def send_welcome_email(sender, instance, created, **kwargs):
             message=f'{instance.name} ({instance.email}) has subscribed to the newsletter.',
             from_email='your-email@example.com',
             recipient_list=['kingswayrehabilitation@gmail.com' ], 
-            fail_silently=False,
-        )
+            fail_silently=False,        
+)
 
 
 

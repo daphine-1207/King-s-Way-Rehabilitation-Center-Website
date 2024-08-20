@@ -286,18 +286,19 @@
                 <div class="col-md-3 mb-4">
                     <div class="footer-newsletter border border-warning p-3 rounded custom-border-yellow">
                         <h6>Signup for our Newsletter</h6>
-                        <form action="/subscribe/" method="post">
+                        <form action="{% url 'subscribe' %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input type="text" name="" class="form-control" placeholder="Enter your name" required>
+                                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
                                 <br>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
-                                    required>
-                            </div> <br>
-                            <a href="{% url 'subscription_success' %}" class="btn btn-warning text-white custom-border-yellow">Subscribe</a>
-
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-warning text-white custom-border-yellow">Subscribe</button>
                         </form>
                     </div>
+                </div>
+                
                     <br> <br>
                     <div class="footer-social">
                         <h3>Follow Us</h3>
