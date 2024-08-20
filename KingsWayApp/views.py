@@ -133,3 +133,18 @@ def contact(request):
         form = ContactForm()
 
     return render(request, 'contact.html', {'form': form})
+
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('subscription_success')
+    else:
+        form = SubscriptionForm()
+
+    return render(request, 'subscribe.html', {'form': form})
+
+def subscription_success(request):
+    return render(request, 'subscription_success.html')

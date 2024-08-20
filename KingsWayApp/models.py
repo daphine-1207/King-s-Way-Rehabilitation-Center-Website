@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator, MinValueValidator, EmailValidator
 import datetime
 from django.utils.translation import gettext_lazy as _
+from django.core.mail import send_mail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Donation(models.Model):
     PAYMENT_METHODS = [
@@ -33,14 +36,35 @@ def validate_name(value):
         )
 
 
-
 class Subscription(models.Model):
-    name = models.CharField(max_length=100, blank=True, validators=[validate_name])
+    name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(unique=True)
     subscribed_at = models.DateTimeField(auto_now_add=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.email
+
+@receiver(post_save, sender=Subscription)
+def send_welcome_email(sender, instance, created, **kwargs):
+    if created:
+        # Send welcome email to the subscriber
+        send_mail(
+            subject='Welcome to Our Newsletter!',
+            message='Thank you for subscribing to our newsletter.',
+            from_email='your-email@example.com',
+            recipient_list=[instance.email],
+            fail_silently=False,
+        )
+
+        # Send notification email to admin
+        send_mail(
+            subject='New Subscription',
+            message=f'{instance.name} ({instance.email}) has subscribed to the newsletter.',
+            from_email='your-email@example.com',
+            recipient_list=['kingswayrehabilitation@gmail.com' ], 
+            fail_silently=False,
+        )
+
 
 
 class Order(models.Model):
