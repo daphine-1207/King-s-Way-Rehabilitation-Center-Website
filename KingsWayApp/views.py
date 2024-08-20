@@ -146,5 +146,4 @@ def subscribe(request):
 
     return render(request, 'subscribe.html', {'form': form})
 
-def subscription_success(request):
-    return render(request, 'subscription_success.html')
+
