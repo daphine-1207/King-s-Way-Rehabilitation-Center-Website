@@ -44,27 +44,9 @@ class Subscription(models.Model):
     def __str__(self):
         return self.email
 
-@receiver(post_save, sender=Subscription)
-def send_welcome_email(sender, instance, created, **kwargs):
-    if created:
-        # Send welcome email to the subscriber
-        send_mail(
-            subject='Welcome to Our Newsletter!',
-            message='Thank you for subscribing to our newsletter.',
-            from_email='your-email@example.com',
-            recipient_list=[instance.email],
-            fail_silently=False,
-)
-
-        # Send notification email to admin
-        send_mail(
-            subject='New Subscription',
-            message=f'{instance.name} ({instance.email}) has subscribed to the newsletter.',
-            from_email='your-email@example.com',
-            recipient_list=['kingswayrehabilitation@gmail.com' ], 
-            fail_silently=False,        
-)
-
+class Subscriber(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
 
 
 class Order(models.Model):

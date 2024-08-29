@@ -8,15 +8,14 @@ class DonationForm(forms.ModelForm):
 
 class SubscriptionForm(forms.ModelForm):
     class Meta:
-        model = Subscription
-        fields = ['email']  
-        widgets = {
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter your email',
-            }),
-        }
-    email = forms.EmailField(required=True)
+        model = Subscriber
+        fields = ['name', 'email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Subscriber.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already subscribed.")
+        return email
 
 
 class OrderForm(forms.ModelForm):
@@ -35,7 +34,7 @@ class OrderForm(forms.ModelForm):
     )
 
     quantity = forms.IntegerField(
-        validators=[MinValueValidator(1)],  # Ensure quantity is positive
+        validators=[MinValueValidator(1)], 
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Enter quantity'
