@@ -28,6 +28,11 @@ SECRET_KEY = "django-insecure-8yf+61bha617@p(xbgg9k_5jh)2bo(_)1^oqpzav77x_c2ybd7
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "KingsWayApp",
     "captcha",
+    "django_recaptcha", 
 ]
 
 MIDDLEWARE = [
@@ -140,5 +146,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 RECAPTCHA_PUBLIC_KEY = '6LdMGXMqAAAAAPLJuwz5WzTS0uwLgZDo6Vt_VjSK'
 RECAPTCHA_PRIVATE_KEY = '6LdMGXMqAAAAAHwQXnOcgZcY5y3A3VNfCXvg8Scj'
 
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
 

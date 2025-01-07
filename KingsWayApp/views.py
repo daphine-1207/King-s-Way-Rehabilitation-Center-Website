@@ -1,12 +1,27 @@
 from django.shortcuts import render, redirect
 from django.urls import path
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from .forms import *
 from .models import *
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.views.decorators.http import require_http_methods
+from django.core.cache import cache
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.views.decorators.http import require_http_methods
+from django.core.cache import cache
+from django.http import HttpResponseForbidden
+from django.core.mail import send_mail
+from django.conf import settings
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
+from django.utils import timezone
+
 
 
 # Create your views here.
@@ -25,60 +40,95 @@ def gallery(request):
 def contact(request):
     return render(request, 'contact.html')
 
+
+
+@require_http_methods(["GET", "POST"])
 def shop(request):
     if request.method == 'POST':
+        # Rate limiting check
+        ip = request.META.get('REMOTE_ADDR')
+        current_hour = timezone.now().hour
+        cache_key = f'order_count_{ip}_{current_hour}'
+        
+        if cache.get(cache_key, 0) >= 5:
+            messages.error(request, 'Too many orders. Please try again in an hour.')
+            return HttpResponseForbidden('Too many orders. Please try again later.')
+
         form = OrderForm(request.POST)
         if form.is_valid():
-            order_data = form.cleaned_data
-            message = order_data.get('message', '') 
-            recipient_email = 'kingswayrehabilitation@gmail.com'  
-
-            # Compose email content
-            email_message = f"""
-            New Order Received
-
-            Order Details:
-            ----------------------
-            Full Name: {order_data.get('full_name')}
-            Item Name: {order_data.get('item_name')}
-            Item Size: {order_data.get('item_size')}
-            Quantity: {order_data.get('quantity')}
-            Delivery Address: {order_data.get('delivery_address')}
-            Phone Number: {order_data.get('phone_number')}
-            Payment Option: {order_data.get('payment_option')}
-
-            """
-            
-            # Send email
             try:
+                # Create order instance but don't save yet
+                order = form.save(commit=False)
+                
+                # Add security tracking fields
+                order.ip_address = request.META.get('REMOTE_ADDR')
+                order.user_agent = request.META.get('HTTP_USER_AGENT', '')
+                order.created_at = timezone.now()
+                
+                # Get cleaned form data
+                order_data = form.cleaned_data
+
+                # Compose email content
+                email_message = f"""
+                New Order Received
+
+                Order Details:
+                ----------------------
+                Full Name: {order_data.get('full_name')}
+                Email: {order_data.get('email')}
+                Item Name: {order_data.get('item_name')}
+                Item Size: {order_data.get('item_size')}
+                Quantity: {order_data.get('quantity')}
+                Delivery Address: {order_data.get('delivery_address')}
+                Phone Number: {order_data.get('phone_number')}
+                Payment Option: {order_data.get('payment_option')}
+
+                Security Information:
+                ----------------------
+                IP Address: {order.ip_address}
+                Order Time: {order.created_at}
+                """
+
+                # Send email notification
                 send_mail(
                     subject='New Order Notification',
                     message=email_message,
                     from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[recipient_email],
+                    recipient_list=['kingswayrehabilitation@gmail.com'],
                     fail_silently=False
                 )
-                messages.success(request, 'Order made successfully!')
-            except Exception as e:
-                print(f'Error sending email: {e}')
-                messages.error(request, 'There was an error sending your order.')
 
-            # Create order
-            Order.objects.create(
-                full_name=order_data['full_name'],
-                item_name=order_data['item_name'],
-                item_size=order_data['item_size'],
-                quantity=order_data['quantity'],
-                phone_number=order_data['phone_number'],
-                payment_option=order_data['payment_option']
-            )
-            return redirect('shop')
+                # Save the order
+                order.save()
+
+                # Increment rate limit counter
+                cache.set(cache_key, cache.get(cache_key, 0) + 1, 3600)  # Expires in 1 hour
+
+                messages.success(request, 'Order placed successfully! We will contact you soon.')
+                return redirect('shop')
+
+            except Exception as e:
+                # Log the error (you should set up proper logging)
+                print(f'Error processing order: {e}')
+                messages.error(request, 'There was an error processing your order. Please try again.')
+                return render(request, 'shop.html', {'form': form})
+
         else:
+            # Form validation failed
+            messages.error(request, 'Please correct the errors in your form.')
             return render(request, 'shop.html', {'form': form})
+
     else:
+        # GET request - display empty form
         form = OrderForm()
 
-    return render(request, 'shop.html', {'form': form})
+    # Add CSRF token to context
+    context = {
+        'form': form,
+        'recaptcha_site_key': settings.RECAPTCHA_PUBLIC_KEY,  # If using recaptcha
+    }
+
+    return render(request, 'shop.html', context)
 
 def donate(request):
     if request.method == 'POST':

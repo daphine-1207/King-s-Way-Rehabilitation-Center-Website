@@ -4,10 +4,13 @@ import re
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator, MinValueValidator, EmailValidator
 import datetime
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.utils import timezone
+from datetime import timedelta
 
 class Donation(models.Model):
     PAYMENT_METHODS = [
@@ -22,8 +25,8 @@ class Donation(models.Model):
     payment_method = models.CharField(max_length=50, choices=PAYMENT_METHODS)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def _str_(self):
-        return f"{self.name} - {self.amount}"
+    def __str__(self):
+        return f"{self.name} - {self.amount:.2f}"
 
 
 def validate_name(value):
@@ -48,16 +51,32 @@ class Subscriber(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
 
+    def __str__(self):
+        return self.email  # Return the email as the string representation
+
 
 class Order(models.Model):
+    ip_address = models.GenericIPAddressField(blank=True, null=True)
+    user_agent = models.CharField(max_length=500, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(verbose_name='Email Address')
+    order_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('verified', 'Verified'),
+            ('completed', 'Completed'),
+            ('cancelled', 'Cancelled')
+        ],
+        default='pending'
+    )
     full_name = models.CharField(max_length=100)
     item_name = models.CharField(max_length=255)
     ITEM_SIZE_CHOICES = [
-        ('Extra Small', 'Extra Small'),
-        ('Small', 'Small'),
-        ('Medium', 'Medium'),
-        ('Large', 'Large'),
-        ('Extra Large', 'Extra Large'),
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+        ('XL', 'Extra Large')
     ]
     ITEM_CHOICES = [
         ('Mens_TShirt', "Men's T-Shirt"),
@@ -90,9 +109,27 @@ class Order(models.Model):
     ]
     payment_option = models.CharField(max_length=30, choices=PAYMENT_OPTIONS)
     
+    def clean(self):
+        # Check for suspicious patterns
+        if self.ip_address:
+            # Check for multiple orders from same IP
+            recent_orders = Order.objects.filter(
+                ip_address=self.ip_address,
+                created_at__gte=timezone.now() - timedelta(hours=1)
+            )
+            if recent_orders.count() >= 5:
+                raise ValidationError("Security check failed. Please try again later.")
 
-    def _str_(self):
+        # Validate phone number format
+        if not self.phone_number.startswith('+256'):
+            raise ValidationError("Please enter a valid Ugandan phone number starting with +256")
+
+    def __str__(self):
         return f"Order {self.id} by {self.full_name}"
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 class Contact(models.Model):

@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from .views import *
 from . import views
+from django.urls import path, include
+
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -14,5 +16,6 @@ urlpatterns = [
     path('success/', success_view, name='success'),
     path('contact/', views.contact, name='contact'),
     path('subscribe/', views.subscribe, name='subscribe'),
+    path('captcha/', include('captcha.urls')),
  
 ]
