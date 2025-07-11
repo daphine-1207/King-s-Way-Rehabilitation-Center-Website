@@ -34,7 +34,7 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(" ")
+ALLOWED_HOSTS = ALLOWED_HOSTS = ["www.kingswayrehabilitation.com", "kingswayrehabilitation.com"]
 
 
 # Application definition
