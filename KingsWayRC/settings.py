@@ -34,7 +34,13 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = ["www.kingswayrehabilitation.com", "kingswayrehabilitation.com"]
+ALLOWED_HOSTS = ALLOWED_HOSTS = [
+    "www.kingswayrehabilitation.com",
+    "kingswayrehabilitation.com",
+    'localhost',
+    '127.0.0.1',
+    'king-s-way-rehabilitation-center-website.onrender.com',
+    ]
 
 
 # Application definition
